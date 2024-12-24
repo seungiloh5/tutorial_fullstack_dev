@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/modal/more_bottom.dart';
 
 final List<BottomNavigationBarItem> myTabs = <BottomNavigationBarItem>[
   BottomNavigationBarItem(
@@ -54,7 +55,18 @@ class _HomeState extends State<Home> {
             icon: Icon(Icons.search),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              showModalBottomSheet(
+                context: context,
+                builder: (context) {
+                  return MoreBottomModal(
+                    cancelTap: () {
+                      Navigator.pop(context);
+                    },
+                  );
+                },
+              );
+            },
             icon: Icon(Icons.notifications_none_rounded),
           ),
         ],
