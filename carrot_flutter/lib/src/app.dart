@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'screens/intro.dart';
+import 'screens/home.dart';
+import 'screens/auth/intro.dart';
 import 'screens/auth/register.dart';
+// import 'screens/sliver_appbar.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -9,12 +11,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Carrot Market',
+      title: 'Flutter Practice',
       routes: {
-        '/': (context) => const Intro(),
+        '/': (context) => const Home(),
+        '/intro': (context) => const Intro(),
         '/register': (context) => const Register(),
       },
-      // home: Intro(),
+      initialRoute: '/',
     );
   }
 }

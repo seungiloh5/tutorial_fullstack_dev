@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'auth/register.dart';
-import 'feed/show.dart';
-import 'shared/data.dart';
+import '../auth/register.dart';
+import '../feed/show.dart';
+import '../shared/data.dart';
 
 class Intro extends StatelessWidget {
   const Intro({super.key});
@@ -21,15 +21,15 @@ class Intro extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 // 기존 코드
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => FeedShow(feedList[0]),
-                  ),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => FeedShow(feedList[0]),
+                //   ),
+                // );
 
                 // 바뀐 코드
-                // Navigator.pushNamed(context, '/register');
+                Navigator.pushNamed(context, '/feed/2');
               },
               child: const Text('물건 사러 가기'),
             ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../feed/show.dart';
-import '../intro.dart';
+import '../auth/intro.dart';
 import '../auth/register.dart';
 import '../unknown.dart';
 import '../shared/data.dart';
@@ -21,8 +21,10 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       onGenerateRoute: (route) {
         if (route.name!.startsWith('/feed/')) {
+          print(route.name);
           final id = int.parse(route.name!.split('/').last);
           final item = feedList.firstWhere((e) => e['id'] == id);
+          print(item);
           return MaterialPageRoute(
             builder: (context) => FeedShow(item),
           );
