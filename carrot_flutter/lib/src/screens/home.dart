@@ -22,7 +22,7 @@ final List<BottomNavigationBarItem> myTabs = <BottomNavigationBarItem>[
 ];
 
 final List<Widget> myTabItems = [
-  Center(child: Text('홈')),
+  const FeedIndex(),
   Center(child: Text('동네')),
   Center(child: Text('채팅')),
   Center(child: Text('마이')),
