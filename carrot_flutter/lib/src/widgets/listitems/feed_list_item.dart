@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../screens/feed/edit.dart';
 
 // 이미지 크기
 const double _imageSize = 110;
@@ -10,7 +11,12 @@ class FeedListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => FeedEdit(item: item)),
+        );
+      },
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Stack(
