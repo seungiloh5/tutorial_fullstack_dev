@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import '../modal/confirm_modal.dart';
 
 class MoreBottomModal extends StatelessWidget {
   final VoidCallback cancelTap;
+  final VoidCallback hideTap;
+
   const MoreBottomModal({
     required this.cancelTap,
+    required this.hideTap,
     super.key,
   });
 
@@ -25,9 +29,28 @@ class MoreBottomModal extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 ListTile(
-                  leading: Icon(Icons.visibility_off_outlined),
-                  title: Text('이 글 숨기기'),
-                ),
+                    leading: Icon(Icons.visibility_off_outlined),
+                    title: Text('이 글 숨기기'),
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return ConfirmModal(
+                            title: '글 숨기기',
+                            content: '이 게시글을 숨기겠습니까?',
+                            confirmText: '숨기기',
+                            cancel: () {
+                              Navigator.pop(context);
+                            },
+                            confirmAction: () {
+                              hideTap();
+                              Navigator.pop(context);
+                              Navigator.pop(context);
+                            },
+                          );
+                        },
+                      );
+                    }),
                 ListTile(
                   leading: Icon(Icons.help_outline),
                   title: Text('게시글 노출 기준'),
