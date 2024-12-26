@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 const double _imageSize = 110;
 
 class FeedListItem extends StatelessWidget {
-  const FeedListItem({super.key});
+  final Map item;
+  const FeedListItem(this.item, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,7 @@ class FeedListItem extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '판매할 문건의 제목',
+                          item['title'],
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(fontSize: 16),
                         ),
@@ -54,7 +55,7 @@ class FeedListItem extends StatelessWidget {
                             Text('N 분전', style: TextStyle(color: Colors.grey)),
                           ],
                         ),
-                        Text('물품 가격',
+                        Text(item['price'].toString(),
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold)),
                       ],
