@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../widgets/buttons/category_button.dart';
+import '../../widgets/listitems/feed_list_item.dart';
 
 class FeedIndex extends StatefulWidget {
   const FeedIndex({super.key});
@@ -29,6 +30,7 @@ class _FeedIndexState extends State<FeedIndex> {
       ),
       body: Column(
         children: [
+          // CategoryBar
           SizedBox(
             height: 40,
             child: ListView(
@@ -41,6 +43,18 @@ class _FeedIndexState extends State<FeedIndex> {
                 CategoryButton(icon: Icons.home, title: '부동산'),
                 SizedBox(width: 12),
                 CategoryButton(icon: Icons.car_crash, title: '중고차'),
+              ],
+            ),
+          ),
+          // ListContent
+          Expanded(
+            child: ListView(
+              children: [
+                FeedListItem(),
+                FeedListItem(),
+                FeedListItem(),
+                FeedListItem(),
+                FeedListItem(),
               ],
             ),
           ),
