@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../widgets/modal/more_bottom.dart';
+
+import 'feed/index.dart';
 
 final List<BottomNavigationBarItem> myTabs = <BottomNavigationBarItem>[
   BottomNavigationBarItem(
@@ -46,34 +47,6 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: false,
-        title: const Text('내 동네'),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.search),
-          ),
-          IconButton(
-            onPressed: () {
-              showModalBottomSheet(
-                context: context,
-                builder: (context) {
-                  return MoreBottomModal(
-                    cancelTap: () {
-                      Navigator.pop(context);
-                    },
-                    hideTap: () {
-                      print('hide');
-                    },
-                  );
-                },
-              );
-            },
-            icon: Icon(Icons.notifications_none_rounded),
-          ),
-        ],
-      ),
       body: IndexedStack(
         index: _selectedIndex,
         children: myTabItems,

@@ -1,38 +1,30 @@
 import 'package:flutter/material.dart';
 
-import '../feed/show.dart';
-import '../auth/intro.dart';
-import '../auth/register.dart';
-import '../unknown.dart';
-import '../shared/data.dart';
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class FeedIndex extends StatefulWidget {
+  const FeedIndex({super.key});
 
   @override
+  State<FeedIndex> createState() => _FeedIndexState();
+}
+
+class _FeedIndexState extends State<FeedIndex> {
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Carrot Market',
-      routes: {
-        '/': (context) => const Intro(),
-        '/register': (context) => const Register(),
-      },
-      initialRoute: '/',
-      onGenerateRoute: (route) {
-        if (route.name!.startsWith('/feed/')) {
-          print(route.name);
-          final id = int.parse(route.name!.split('/').last);
-          final item = feedList.firstWhere((e) => e['id'] == id);
-          print(item);
-          return MaterialPageRoute(
-            builder: (context) => FeedShow(item),
-          );
-        }
-        return MaterialPageRoute(
-          builder: (context) => const UnknownScreen(),
-        );
-      },
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: false,
+        title: const Text('동네생활'),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.search),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.notifications_none_rounded),
+          ),
+        ],
+      ),
     );
   }
 }
