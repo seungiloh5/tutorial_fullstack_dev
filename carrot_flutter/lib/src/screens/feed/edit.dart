@@ -1,51 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class FeedEdit extends StatefulWidget {
+import '../../controllers/feed_controller.dart';
+
+class FeedEdit extends StatelessWidget {
   final Map item;
 
-  const FeedEdit({
-    super.key,
-    required this.item,
-  });
+  FeedEdit({Key? key, required this.item}) : super(key: key);
 
-  @override
-  State<FeedEdit> createState() => _FeedEditState();
-}
-
-class _FeedEditState extends State<FeedEdit> {
-  TextEditingController? titleController;
-  TextEditingController? priceController;
-
-  void _submit() {
-    setState(() {
-      widget.item['title'] = titleController!.text;
-      widget.item['price'] =
-          int.tryParse(priceController!.text) ?? widget.item['price'];
-    });
-
-    Navigator.pop(context);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    titleController = TextEditingController(text: widget.item['title']);
-    priceController =
-        TextEditingController(text: widget.item['price'].toString());
-  }
-
-  @override
-  void dispose() {
-    titleController?.dispose();
-    priceController?.dispose();
-    super.dispose();
-  }
+  final FeedController feedController = Get.find<FeedController>();
 
   @override
   Widget build(BuildContext context) {
+    // 컨트롤러를 로컬 변수로 선언하고 초기화
+    final titleController = TextEditingController(text: item['title']);
+    final priceController =
+        TextEditingController(text: item['price'].toString());
+
+    // 수정 데이터를 처리하는 함수
+    void _submit() {
+      final updatedItem = {
+        ...item,
+        'title': titleController.text,
+        'price': int.tryParse(priceController.text) ?? item['price'],
+      };
+
+      feedController.updateData(updatedItem);
+
+      Get.back();
+    }
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('물품 수정'),
+        title: const Text('물품 수정'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -54,6 +41,7 @@ class _FeedEditState extends State<FeedEdit> {
             TextField(
               controller: titleController,
               decoration: const InputDecoration(
+                labelText: '제목',
                 border: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey),
                 ),
@@ -63,6 +51,7 @@ class _FeedEditState extends State<FeedEdit> {
             TextField(
               controller: priceController,
               decoration: const InputDecoration(
+                labelText: '가격',
                 border: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey),
                 ),

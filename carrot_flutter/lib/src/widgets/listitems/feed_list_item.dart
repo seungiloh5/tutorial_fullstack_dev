@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
 import '../../screens/feed/edit.dart';
 
 // 이미지 크기
@@ -12,10 +14,11 @@ class FeedListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => FeedEdit(item: item)),
-        );
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => FeedEdit(item: item)),
+        // );
+        Get.to(() => FeedEdit(item: item));
       },
       child: Padding(
         padding: const EdgeInsets.all(12.0),
