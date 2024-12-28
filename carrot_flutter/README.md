@@ -18,3 +18,4 @@ A new Flutter project.
     - 3장 5 Row와 Column을 활용환 레이아웃 구성
     - 4장 1 상태 관리의 필요성
     - 4장 2 외부 라이브러리 설정
+    - 4장 3 GetX를 이용한 상태 관리 도입
