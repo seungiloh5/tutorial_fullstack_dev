@@ -20,3 +20,4 @@ A new Flutter project.
     - 4장 2 외부 라이브러리 설정
     - 4장 3 GetX를 이용한 상태 관리 도입
     - 5장 1 프로젝트 아키텍처와 폴더 구조 계획
+    - 5장 2 Wireframe 및 Mockup 설계
