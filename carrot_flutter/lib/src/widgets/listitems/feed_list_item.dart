@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../screens/feed/edit.dart';
+import '../../models/feed_model.dart';
+import '../modal/confirm_modal.dart';
+import '../modal/more_bottom.dart';
 
 // 이미지 크기
 const double _imageSize = 110;
 
 class FeedListItem extends StatelessWidget {
-  final Map item;
-  const FeedListItem(this.item, {super.key});
+  final FeedModel data;
+  const FeedListItem(this.data, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +21,7 @@ class FeedListItem extends StatelessWidget {
         //   context,
         //   MaterialPageRoute(builder: (context) => FeedEdit(item: item)),
         // );
-        Get.to(() => FeedEdit(item: item));
+        Get.to(() => FeedEdit(item: data));
       },
       child: Padding(
         padding: const EdgeInsets.all(12.0),
@@ -51,7 +54,7 @@ class FeedListItem extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          item['title'],
+                          data.title,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(fontSize: 16),
                         ),
@@ -64,7 +67,7 @@ class FeedListItem extends StatelessWidget {
                             Text('N 분전', style: TextStyle(color: Colors.grey)),
                           ],
                         ),
-                        Text(item['price'].toString(),
+                        Text(data.price.toString(),
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold)),
                       ],

@@ -2,34 +2,53 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../controllers/feed_controller.dart';
+import '../../models/feed_model.dart';
 
-class FeedEdit extends StatelessWidget {
-  final Map item;
+class FeedEdit extends StatefulWidget {
+  final FeedModel item;
 
-  FeedEdit({Key? key, required this.item}) : super(key: key);
+  const FeedEdit({Key? key, required this.item}) : super(key: key);
 
+  @override
+  State<FeedEdit> createState() => _FeedEditState();
+}
+
+class _FeedEditState extends State<FeedEdit> {
+  late TextEditingController titleController;
+  late TextEditingController priceController;
   final FeedController feedController = Get.find<FeedController>();
 
   @override
+  void initState() {
+    super.initState();
+    // TextEditingController 초기화
+    titleController = TextEditingController(text: widget.item.title);
+    priceController = TextEditingController(text: widget.item.price.toString());
+  }
+
+  @override
+  void dispose() {
+    // TextEditingController 해제
+    titleController.dispose();
+    priceController.dispose();
+    super.dispose();
+  }
+
+  void _submit() {
+    final updatedItem = FeedModel.parse({
+      'id': widget.item.id,
+      'title': titleController.text,
+      'content': widget.item.content,
+      'price': int.tryParse(priceController.text) ?? widget.item.price,
+    });
+
+    feedController.updateData(updatedItem);
+
+    Get.back();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    // 컨트롤러를 로컬 변수로 선언하고 초기화
-    final titleController = TextEditingController(text: item['title']);
-    final priceController =
-        TextEditingController(text: item['price'].toString());
-
-    // 수정 데이터를 처리하는 함수
-    void _submit() {
-      final updatedItem = {
-        ...item,
-        'title': titleController.text,
-        'price': int.tryParse(priceController.text) ?? item['price'],
-      };
-
-      feedController.updateData(updatedItem);
-
-      Get.back();
-    }
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('물품 수정'),
