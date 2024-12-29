@@ -11,6 +11,21 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      theme: ThemeData(
+        primaryColor: const Color(0xFFF6f0f),
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+          selectedItemColor: Colors.black,
+          unselectedItemColor: Colors.grey,
+          showUnselectedLabels: true,
+        ),
+        buttonTheme: const ButtonThemeData(
+          buttonColor: Color(0xFFFF6f0f),
+        ),
+        textTheme: const TextTheme(
+          displayLarge: TextStyle(fontSize: 18, fontFamily: 'Noto Sans'),
+          bodyMedium: TextStyle(fontSize: 14, fontFamily: 'Noto Sans'),
+        ),
+      ),
       debugShowCheckedModeBanner: false,
       title: 'Flutter Practice',
       routes: {
