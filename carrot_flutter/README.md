@@ -23,3 +23,4 @@ A new Flutter project.
     - 5장 2 Wireframe 및 Mockup 설계
     - 5장 3 애니메이션 및 트랜지션 추가
     - 5장 4 API 연동
+    - 5장 5 GetConnect 도입
