@@ -3,8 +3,6 @@ import 'package:get/get.dart';
 
 import '../../screens/feed/edit.dart';
 import '../../models/feed_model.dart';
-import '../modal/confirm_modal.dart';
-import '../modal/more_bottom.dart';
 
 // 이미지 크기
 const double _imageSize = 110;

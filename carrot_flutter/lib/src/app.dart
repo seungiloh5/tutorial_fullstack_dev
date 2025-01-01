@@ -24,6 +24,10 @@ class MyApp extends StatelessWidget {
         textTheme: const TextTheme(
           displayLarge: TextStyle(fontSize: 18, fontFamily: 'Noto Sans'),
           bodyMedium: TextStyle(fontSize: 14, fontFamily: 'Noto Sans'),
+          labelLarge: TextStyle(
+              fontSize: 16,
+              fontFamily: 'Noto Sans',
+              fontWeight: FontWeight.bold),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
@@ -43,6 +47,23 @@ class MyApp extends StatelessWidget {
             textStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
         ),
+        inputDecorationTheme: const InputDecorationTheme(
+          hintStyle: TextStyle(
+            fontSize: 16,
+            color: Colors.grey,
+          ),
+          floatingLabelStyle: TextStyle(fontSize: 10),
+          contentPadding: EdgeInsets.all(10),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey),
+          ),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.black),
+          ),
+        ),
       ),
       debugShowCheckedModeBanner: false,
       title: 'Flutter Practice',
@@ -51,7 +72,7 @@ class MyApp extends StatelessWidget {
         '/intro': (context) => const Intro(),
         '/register': (context) => const Register(),
       },
-      initialRoute: '/',
+      initialRoute: '/intro',
     );
   }
 }
