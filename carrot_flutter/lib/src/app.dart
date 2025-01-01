@@ -25,6 +25,24 @@ class MyApp extends StatelessWidget {
           displayLarge: TextStyle(fontSize: 18, fontFamily: 'Noto Sans'),
           bodyMedium: TextStyle(fontSize: 14, fontFamily: 'Noto Sans'),
         ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xffFF7E36),
+            padding: const EdgeInsets.symmetric(vertical: 22),
+            textStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            foregroundColor: Colors.white,
+            minimumSize: const Size(double.infinity, 10),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5),
+            ),
+          ),
+        ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            foregroundColor: const Color(0xffFF7E36),
+            textStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          ),
+        ),
       ),
       debugShowCheckedModeBanner: false,
       title: 'Flutter Practice',
