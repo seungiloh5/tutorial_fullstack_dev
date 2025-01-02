@@ -47,7 +47,7 @@ class _LoginState extends State<Login> {
     return Scaffold(
       appBar: AppBar(title: const Text('로그인')),
       body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20),
+        padding: const EdgeInsets.all(20),
         child: ListView(
           children: [
             LabelTextField(

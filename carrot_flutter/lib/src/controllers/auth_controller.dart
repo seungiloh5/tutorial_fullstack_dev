@@ -1,7 +1,58 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../provider/auth_provider.dart';
+import 'dart:async';
 
 class AuthController extends GetxController {
+  final authProvider = Get.put(AuthProvider());
+
+  final RxBool isButtonEnabled = false.obs;
+  final RxBool showVerifyForm = false.obs;
+  final RxString buttonText = "인증 문자 받기".obs;
+  String? phoneNumber;
+  Timer? countdownTimer;
+
+  // 휴대폰 인증 코드를 요청하는 함수
+  Future<void> requestVerificationCode(String phone) async {
+    Map body = await authProvider.requestPhoneCode(phone);
+    if (body['result'] == 'ok') {
+      phoneNumber = phone;
+      DateTime expiryTime = DateTime.parse(body['expired']);
+      _startCountdown(expiryTime);
+    }
+  }
+
+  // 사용자가 입력한 코드를 검증하는 함수
+  Future<bool> verifyPhoneNumber(String userInputCode) async {
+    Map body = await authProvider.verifyPhoneNumber(userInputCode);
+    if (body['result'] == 'ok') {
+      return true;
+    }
+    Get.snackbar('인증 번호 에러', body['message'],
+        snackPosition: SnackPosition.BOTTOM);
+    return false;
+  }
+
+  void _startCountdown(DateTime expiryTime) {
+    isButtonEnabled.value = false; // 버튼 비활성화
+    showVerifyForm.value = true; // 인증 폼 활성화
+    countdownTimer?.cancel(); // 타이머 초기화
+
+    countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      Duration timeDiff = expiryTime.difference(DateTime.now());
+      if (timeDiff.isNegative) {
+        buttonText.value = '인증 문자 다시 받기';
+        isButtonEnabled.value = true;
+        timer.cancel();
+      } else {
+        // 남은 시간을 mm:ss 포맷으로 업데이트
+        String minutes = timeDiff.inMinutes.toString().padLeft(2, '0');
+        String seconds = (timeDiff.inSeconds % 60).toString().padLeft(2, '0');
+        buttonText.value = "인증문자 다시 받기 $minutes:$seconds";
+      }
+    });
+  }
+
   void updatedButtonState(TextEditingController phoneController) {
     String rawText = phoneController.text;
     String text = rawText.replaceAll('-', '');
@@ -33,6 +84,8 @@ class AuthController extends GetxController {
               ? formattedText.length
               : cursorPosition),
     );
+
+    isButtonEnabled.value = text.length == 11;
   }
 
   String _formatPhoneNumber(String text) {
