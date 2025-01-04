@@ -12,6 +12,17 @@ class AuthController extends GetxController {
   String? phoneNumber;
   Timer? countdownTimer;
 
+  Future<bool> register(String password, String name, int? profile) async {
+    Map body =
+        await authProvider.register(phoneNumber!, password, name, profile);
+    if (body['result'] == 'ok') {
+      return true;
+    }
+    Get.snackbar('회원가입 에러', body['message'],
+        snackPosition: SnackPosition.BOTTOM);
+    return false;
+  }
+
   // 휴대폰 인증 코드를 요청하는 함수
   Future<void> requestVerificationCode(String phone) async {
     Map body = await authProvider.requestPhoneCode(phone);
@@ -99,10 +110,6 @@ class AuthController extends GetxController {
   }
 
   Future<bool> login(String phone, String password) async {
-    return true;
-  }
-
-  Future<bool> register(String password, String name, int? profile) async {
     return true;
   }
 }

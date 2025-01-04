@@ -35,9 +35,50 @@ class _RegisterFormState extends State<RegisterForm> {
         child: ListView(
           children: [
             // 프로필 이미지
-            // 비밀번호
+            const CircleAvatar(
+              radius: 50,
+              backgroundColor: Colors.grey,
+              child: Icon(Icons.camera_alt, color: Colors.white, size: 30),
+            ),
             // 닉네임
+            Text('닉네임', style: Theme.of(context).textTheme.labelLarge),
+            const SizedBox(height: 8),
+            TextField(
+              controller: _nameController,
+              style: const TextStyle(fontSize: 16),
+              decoration: InputDecoration(
+                hintText: '닉네임을 입력해주세요',
+              ),
+            ),
+            const SizedBox(height: 16),
+            // 비밀번호
+            Text('비밀번호', style: Theme.of(context).textTheme.labelLarge),
+            const SizedBox(height: 8),
+            TextField(
+              controller: _passwordController,
+              style: const TextStyle(fontSize: 16),
+              obscureText: true,
+              decoration: InputDecoration(
+                hintText: '비밀번호를 입력해주세요',
+              ),
+            ),
+            const SizedBox(height: 16),
+            // 비밀번호 확인
+            Text('비밀번호 확인', style: Theme.of(context).textTheme.labelLarge),
+            const SizedBox(height: 8),
+            TextField(
+              obscureText: true,
+              style: const TextStyle(fontSize: 16),
+              decoration: InputDecoration(
+                hintText: '비밀번호를 다시 입력해주세요',
+              ),
+            ),
+            const SizedBox(height: 16),
             // 버튼
+            ElevatedButton(
+              onPressed: _submit,
+              child: const Text('회원가입'),
+            ),
           ],
         ),
       ),
