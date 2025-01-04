@@ -87,7 +87,7 @@ class _RegisterState extends State<Register> {
                     ),
                     SizedBox(height: 20),
                     ElevatedButton(
-                      onPressed: null,
+                      onPressed: _confirm,
                       child: Text('인증 번호 확인'),
                     ),
                   ],

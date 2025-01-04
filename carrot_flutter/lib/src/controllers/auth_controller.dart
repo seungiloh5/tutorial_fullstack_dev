@@ -48,7 +48,7 @@ class AuthController extends GetxController {
         // 남은 시간을 mm:ss 포맷으로 업데이트
         String minutes = timeDiff.inMinutes.toString().padLeft(2, '0');
         String seconds = (timeDiff.inSeconds % 60).toString().padLeft(2, '0');
-        buttonText.value = "인증문자 다시 받기 $minutes:$seconds";
+        buttonText.value = "인증 문자 다시 받기 $minutes:$seconds";
       }
     });
   }
