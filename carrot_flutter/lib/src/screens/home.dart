@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'feed/index.dart';
+import '../screens/my/mypage.dart';
 
 final List<BottomNavigationBarItem> myTabs = <BottomNavigationBarItem>[
   BottomNavigationBarItem(
@@ -22,10 +23,10 @@ final List<BottomNavigationBarItem> myTabs = <BottomNavigationBarItem>[
 ];
 
 final List<Widget> myTabItems = [
-  const FeedIndex(),
+  FeedIndex(),
   Center(child: Text('동네')),
   Center(child: Text('채팅')),
-  Center(child: Text('마이')),
+  MyPage(),
 ];
 
 class Home extends StatefulWidget {
