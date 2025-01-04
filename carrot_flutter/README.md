@@ -26,3 +26,4 @@ A new Flutter project.
     - 5장 5 GetConnect 도입
     - 6장 1 인트로 및 로그인 화면
     - 6장 2 회원가입 화면
+    - 6장 3 마이페이지 화면
