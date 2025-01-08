@@ -5,9 +5,17 @@ const webController = require('./web/controller');
 const apiFeedController = require('./api/feed/controller');
 const apiUserController = require('./api/user/controller');
 
+//
+const {logRequestTime} = require('./middleware/log'); // 미들웨어 불러오기
+
 // 웹 컨트롤러를 사용한 라우트 등록
 router.get('/', webController.home); // 홈 페이지
-router.get('/page/:route', webController.page); // 동적 페이지 처리
+
+//  동적 페이지 처리
+router.get('/page/:route',logRequestTime, webController.page); // 동적 페이지 처리\
+
+// API 컨트롤러를 사용한 라우트 등록
+router.use(logRequestTime); // 모든 API 요청에 대해 미들웨어 적용
 
 // feed API 라우트 등록
 router.post('/auth/phone', apiUserController.phone); // API: 휴대폰 인증 번호 발송

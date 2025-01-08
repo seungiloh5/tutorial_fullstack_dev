@@ -12,6 +12,15 @@ const port = process.env.PORT || 3000;
 // ./src/router 파일에 정의된 라우터를 사용
 const router = require('./src/router');
 
+// body-parser 모듈을 불러옴
+const bodyParser = require('body-parser');
+
+// JSON 데이터를 처리하기 위해 body-parser를 설정
+app.use(bodyParser.json());
+
+//  URL 인코딩된 데이터를 처리하기 위해 body-parser를 설정
+app.use(bodyParser.urlencoded({extended: true}));
+
 // 라우터를 애플리케이션에 등록
 // 모든 경로에 대해 router를 사용하도록 설정
 app.use('/', router);
