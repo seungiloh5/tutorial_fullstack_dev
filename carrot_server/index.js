@@ -1,47 +1,23 @@
+// Express 모듈을 불러옴
 const express = require('express');
+
+// Express 애플리케이션 생성
 const app = express();
-const port = process.env.PORT||3000;
 
-app.get('/', (req, res) => {
-    res.send('홈페이지');
-}); 
+// 서버 포트를 설정
+// 환경 변수에 PORT 값이 설정되어 있으면 그 값을 사용하고, 그렇지 않으면 기본값으로 3000을 사용
+const port = process.env.PORT || 3000;
 
-app.get('/page/policy', (req, res) => {
-    res.send('이용 약관');
-});
+// 외부 라우터 모듈을 불러옴
+// ./src/router 파일에 정의된 라우터를 사용
+const router = require('./src/router');
 
-app.get('/page/terms', (req, res) => {
-    res.send('개인정보 처리방침');
-});
+// 라우터를 애플리케이션에 등록
+// 모든 경로에 대해 router를 사용하도록 설정
+app.use('/', router);
 
-app.get('/api/user/my', (req, res) => {
-    res.send('내 정보');
-});
-
-app.put('/api/user/my', (req, res) => {
-    res.send('내 정보 수정');
-});
-
-app.get('/api/feed', (req, res) => {
-    res.send('피드 목록');
-});
-
-app.post('/api/feed', (req, res) => {
-    res.send('피드 생성');
-});
-
-app.get('/api/feed/:feed', (req, res) => {
-    res.send('피드 상세');
-});
-
-app.put('/api/feed/:feed', (req, res) => {
-    res.send('피드 수정');
-});
-
-app.delete('/api/feed/:feed', (req, res) => {
-    res.send('피드 삭제');
-});
-
+// 서버 시작
+// 지정된 포트에서 서버를 시작하고, 성공적으로 시작되면 콘솔에 메시지를 출력
 app.listen(port, () => {
-    console.log(`웹서버 구동 ... ${port}`);
+    console.log(`웹서버 구동 중... ${port}`);
 });
