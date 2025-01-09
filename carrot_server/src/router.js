@@ -18,10 +18,7 @@ router.get('/page/:route',logRequestTime, webController.page); // 동적 페이�
 router.use(logRequestTime); // 모든 API 요청에 대해 미들웨어 적용
 
 // feed API 라우트 등록
-router.post('/auth/phone', apiUserController.phone); // API: 휴대폰 인증 번호 발송
-router.put('/auth/phone', apiUserController.phoneVerify); // API: 휴대폰 인증 번호 확인
-router.post('/auth/register', apiUserController.register); // API: 회원 가입
-router.post('/auth/login', apiUserController.login); // API: 로그인
+router.post('/api/user/my', apiUserController.show); // API: 내 정보 조회
 router.post('/api/user/my', apiUserController.update); // API: 내 정보 조회
 
 // user API 라우트 등록
