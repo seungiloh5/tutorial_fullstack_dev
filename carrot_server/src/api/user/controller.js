@@ -3,7 +3,13 @@ exports.phone = (req, res) => {
 }
 
 exports.phoneVerify = (req, res) => {
-    res.send('인증 번호 확인');
+    const code = req.body.code;
+
+    if (code === '123456') {
+        res.json({result: "ok", message: "성공"});
+        return;
+    }
+    res.json({result: "fail", message: "인증 번호가 맞지 않습니다."});
 }
 
 exports.register = (req, res) => {
