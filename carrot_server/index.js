@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 // Express 모듈을 불러옴
 const express = require('express');
 
