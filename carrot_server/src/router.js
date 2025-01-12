@@ -25,7 +25,7 @@ router.post('/file', upload.single('file'), (req, res) => {
 
 // feed API 라우트 등록
 router.get('/api/user/my', apiUserController.show); // API: 내 정보 조회
-router.post('/api/user/my', apiUserController.update); // API: 내 정보 조회
+router.post('/api/user/phone/register', apiUserController.register); // API: 내 정보 조회
 router.post('/api/user/phone/verify', apiUserController.phoneVerify); // API: 인증 번호 확인
 
 // user API 라우트 등록
