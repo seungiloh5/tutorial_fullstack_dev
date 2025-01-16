@@ -7,6 +7,7 @@ const upload = multer({dest: 'storage/'}); // 파일 업로드를 위한 multer 
 const webController = require('./web/controller');
 const apiFeedController = require('./api/feed/controller');
 const apiUserController = require('./api/user/controller');
+const fileController = require('./api/file/controller');
 
 //
 const {logRequestTime} = require('./middleware/log'); // 미들웨어 불러오기
@@ -18,10 +19,12 @@ router.get('/page/:route',logRequestTime, webController.page); // 동적 페이�
 // API 컨트롤러를 사용한 라우트 등록
 router.use(logRequestTime); // 모든 API 요청에 대해 미들웨어 적용
 
-router.post('/file', upload.single('file'), (req, res) => {
-    console.log(req.file);
-    res.json(req.file);
-});
+// router.post('/file', upload.single('file'), (req, res) => {
+//     console.log(req.file);
+//     res.json(req.file);
+// });
+
+router.post('/file', upload.single('file'), fileController.upload); // 파일 업로드
 
 // feed API 라우트 등록
 router.get('/api/user/my', apiUserController.show); // API: 내 정보 조회
