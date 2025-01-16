@@ -8,6 +8,23 @@ exports.upload = async (req, res) => {
 
     if (affectedRows > 0) {
         return res.json({result: 'ok', data: insertId})
+    } else {
+        return res.json({ result: 'fail'})
     }
-    return res.josn({ result: 'fail'})
+}
+
+exports.download = async (req, res) => {
+    const { id } = req.params;
+
+    const item = await repository.show(id);
+
+    if (item == null) {
+        return res.send({result: 'fail'});
+    }
+
+    res.download(item.file_path, item.original_name, (err) => {
+        if (err) {
+            res.send({ result: "error", message: err.message});
+        }
+    });
 }

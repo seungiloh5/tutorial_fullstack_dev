@@ -24,7 +24,9 @@ router.use(logRequestTime); // 모든 API 요청에 대해 미들웨어 적용
 //     res.json(req.file);
 // });
 
-router.post('/file', upload.single('file'), fileController.upload); // 파일 업로드
+// 파일 업로드
+router.post('/file', upload.single('file'), fileController.upload); 
+router.get('file/:id', fileController.download);
 
 // feed API 라우트 등록
 router.get('/api/user/my', apiUserController.show); // API: 내 정보 조회
