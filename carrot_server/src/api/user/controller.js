@@ -57,10 +57,28 @@ exports.phoneVerify = (req, res) => {
     res.json({result: "fail", message: "인증 번호가 맞지 않습니다."});
 }
 
-exports.show = (req, res) => {
-    res.send('마이페이지');
+exports.show = async (req, res) => {
+    const user = req.user;
+
+    const item = await repository.findId(user.id);
+
+    if (item == null) {
+        return res.send({ result: 'fail', message: '회원을 찾을 수 없습니다.'});
+    } else {
+        res.send({ result: 'ok', data: item});
+    }
 }
 
-exports.update = (req, res) => {
-    res.send('마이페이지 수정');
+exports.update = async (req, res) => {
+    const { name, profile_id } = req.body;
+    const user = req.user;
+
+    const result = await repository.update(user.id, name, profile_id);
+
+    if(result.affectedRows > 0) {
+        const item = await repository.findId(user.id);
+        res.send({ result: 'ok', data: item});
+    } else {
+        res.send({ result: 'fail', message: '오류가 발생하였습니다.' });
+    }
 }
