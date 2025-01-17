@@ -29,9 +29,11 @@ router.post('/file', upload.single('file'), fileController.upload);
 router.get('file/:id', fileController.download);
 
 // feed API 라우트 등록
-router.get('/api/user/my', apiUserController.show); // API: 내 정보 조회
-router.post('/api/user/phone/register', apiUserController.register); // API: 내 정보 조회
-router.post('/api/user/phone/verify', apiUserController.phoneVerify); // API: 인증 번호 확인
+router.get('/auth/show', apiUserController.show); // API: 내 정보 조회
+router.post('/auth/register', apiUserController.register); // API: 내 정보 조회
+router.post('/auth/login', apiUserController.login); // API: 내 정보 조회
+router.post('/auth/phone', apiUserController.phone); // AP: 만료 시간
+router.post('/auth/phoneVerify', apiUserController.phoneVerify); // API: 인증 번호 확인
 
 // user API 라우트 등록
 router.get('/api/feed', apiFeedController.index); // API: 피드 목록 조회
