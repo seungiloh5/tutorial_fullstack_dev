@@ -21,12 +21,12 @@ router.put('/auth/phone', apiUserController.phoneVerify); // API: 인증 번호 
 // 마이페이지 라우트, 인증 필요
 router.use(authenticateToken); // 인증 미들웨어 적용
 
-// 웹 컨트롤러를 사용한 라우트 등록
-router.get('/', webController.home); // 홈 페이지
-router.get('/page/:route',logRequestTime, webController.page); // 동적 페이지 처리\
-
 // API 컨트롤러를 사용한 라우트 등록
 router.use(logRequestTime); // 모든 API 요청에 대해 미들웨어 적용
+
+// 웹 컨트롤러를 사용한 라우트 등록
+router.get('/', webController.home); // 홈 페이지
+router.get('/page/:route',logRequestTime, webController.page); // 동적 페이지 처리
 
 router.get('/api/user/my', authenticateToken, apiUserController.show); // API: 내 정보 조회
 router.put('/api/user/my', authenticateToken,  apiUserController.update); // API: 내 정보 수정
