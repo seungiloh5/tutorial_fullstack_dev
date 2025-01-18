@@ -6,7 +6,8 @@ import 'screens/auth/register.dart';
 // import 'screens/sliver_appbar.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final bool isLogin;
+  const MyApp(this.isLogin, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -67,12 +68,12 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       title: 'Flutter Practice',
+      initialRoute: isLogin ? '/' : '/intro',
       routes: {
         '/': (context) => const Home(),
         '/intro': (context) => const Intro(),
         '/register': (context) => const Register(),
       },
-      initialRoute: '/intro',
     );
   }
 }
