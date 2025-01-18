@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controllers/auth_controller.dart';
 import '../home.dart';
+import 'package:carrot_flutter/src/widgets/forms/label_textfield.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({super.key});
@@ -13,6 +14,7 @@ class RegisterForm extends StatefulWidget {
 class _RegisterFormState extends State<RegisterForm> {
   final authController = Get.put(AuthController());
   final _passwordController = TextEditingController();
+  final _passwordConfirmController = TextEditingController();
   final _nameController = TextEditingController();
 
   _submit() async {
@@ -22,7 +24,7 @@ class _RegisterFormState extends State<RegisterForm> {
       null,
     );
     if (result) {
-      Get.off(() => const Home());
+      Get.offAll(() => const Home());
     }
   }
 
@@ -36,44 +38,32 @@ class _RegisterFormState extends State<RegisterForm> {
           children: [
             // 프로필 이미지
             const CircleAvatar(
-              radius: 50,
+              radius: 40,
               backgroundColor: Colors.grey,
               child: Icon(Icons.camera_alt, color: Colors.white, size: 30),
             ),
+            const SizedBox(height: 16),
             // 닉네임
-            Text('닉네임', style: Theme.of(context).textTheme.labelLarge),
-            const SizedBox(height: 8),
-            TextField(
+            LabelTextField(
+              label: '닉네임',
+              hintText: '닉네임을 입력해주세요',
               controller: _nameController,
-              style: const TextStyle(fontSize: 16),
-              decoration: InputDecoration(
-                hintText: '닉네임을 입력해주세요',
-              ),
+              isObscure: true,
             ),
-            const SizedBox(height: 16),
             // 비밀번호
-            Text('비밀번호', style: Theme.of(context).textTheme.labelLarge),
-            const SizedBox(height: 8),
-            TextField(
+            LabelTextField(
+              label: '비밀번호',
+              hintText: '비밀번호를 입력해주세요',
               controller: _passwordController,
-              style: const TextStyle(fontSize: 16),
-              obscureText: true,
-              decoration: InputDecoration(
-                hintText: '비밀번호를 입력해주세요',
-              ),
+              isObscure: true,
             ),
-            const SizedBox(height: 16),
             // 비밀번호 확인
-            Text('비밀번호 확인', style: Theme.of(context).textTheme.labelLarge),
-            const SizedBox(height: 8),
-            TextField(
-              obscureText: true,
-              style: const TextStyle(fontSize: 16),
-              decoration: InputDecoration(
-                hintText: '비밀번호를 다시 입력해주세요',
-              ),
+            LabelTextField(
+              label: '비밀번호 확인',
+              hintText: '비밀번호를 다시 입력해주세요',
+              controller: _passwordConfirmController,
+              isObscure: true,
             ),
-            const SizedBox(height: 16),
             // 버튼
             ElevatedButton(
               onPressed: _submit,

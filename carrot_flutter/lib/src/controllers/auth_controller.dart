@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'dart:developer';
 import 'package:get/get.dart';
 import '../provider/auth_provider.dart';
+import '../shared/global.dart';
 import 'dart:async';
 
 class AuthController extends GetxController {
@@ -9,13 +11,16 @@ class AuthController extends GetxController {
   final RxBool isButtonEnabled = false.obs;
   final RxBool showVerifyForm = false.obs;
   final RxString buttonText = "인증 문자 받기".obs;
-  String? phoneNumber;
+  String? phoneNumber; // requestVerificationCode 함수에서 기록한 폰번호
   Timer? countdownTimer;
 
   Future<bool> register(String password, String name, int? profile) async {
     Map body =
         await authProvider.register(phoneNumber!, password, name, profile);
     if (body['result'] == 'ok') {
+      String token = body['access_token'];
+      log("token: $token"); // developer 패키지안에 log 함수
+      Global.accessToken = token;
       return true;
     }
     Get.snackbar('회원가입 에러', body['message'],
@@ -110,6 +115,15 @@ class AuthController extends GetxController {
   }
 
   Future<bool> login(String phone, String password) async {
-    return true;
+    Map body = await authProvider.login(phone, password);
+    if (body['result'] == 'ok') {
+      String token = body['acess_token'];
+      log("token: $token");
+      Global.accessToken = token;
+      return true;
+    }
+    Get.snackbar('로그인 에러', body['message'],
+        snackPosition: SnackPosition.BOTTOM);
+    return false;
   }
 }
