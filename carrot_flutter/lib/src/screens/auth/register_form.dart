@@ -48,7 +48,7 @@ class _RegisterFormState extends State<RegisterForm> {
               label: '닉네임',
               hintText: '닉네임을 입력해주세요',
               controller: _nameController,
-              isObscure: true,
+              isObscure: false,
             ),
             // 비밀번호
             LabelTextField(
