@@ -39,12 +39,22 @@ exports.login = async (req, res) => {
 }
 
 exports.phone = (req, res) => {
+    const { phone } = req.body;
+
+    // 핸드폰 번호가 없을 경우
+    if (!phone) {
+        return res.status(400).json({ result: "error", message: "핸드폰 번호가 필요합니다." });
+    } 
+
+    // 인증번호 생성
+    const verificationCode = "123456";
+
+    // 만료 시간 계산
     const now = new Date();
     now.setMinutes(now.getMinutes() + 3);
-
     const expiredTime = now.toISOString().replace('T', ' ').substring(0, 19);
 
-    res.json({result: "ok", expiredTime});
+    res.json({result: "ok", phone, verificationCode, expiredTime});
 }
 
 exports.phoneVerify = (req, res) => {

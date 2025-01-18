@@ -31,6 +31,7 @@ class AuthController extends GetxController {
   // 휴대폰 인증 코드를 요청하는 함수
   Future<void> requestVerificationCode(String phone) async {
     Map body = await authProvider.requestPhoneCode(phone);
+    print('controller에서 인증코드 받음: ${body}');
     if (body['result'] == 'ok') {
       phoneNumber = phone;
       DateTime expiryTime = DateTime.parse(body['expired']);

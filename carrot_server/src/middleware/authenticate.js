@@ -6,7 +6,7 @@ function authenticateToken(req, res, next) {
     const token = authHeader && authHeader.split(' ')[1];
 
     if (!token) {
-        return res.State(401).send({ message: '토근이 없습니다.'});
+        return res.status(401).send({ message: '토근이 없습니다.'});
     }
 
     jwt.verify(token, process.env.JWT_KEY, (err, decoded) => {
