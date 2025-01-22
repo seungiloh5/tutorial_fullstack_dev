@@ -7,10 +7,21 @@ class FeedController extends GetxController {
   final feedProvider = Get.put(FeedProvider());
   RxList<FeedModel> feedList = <FeedModel>[].obs;
 
-  feedIndex(int page) async {
-    Map json = await feedProvider.getList(page: page);
+  feedIndex({int page = 1}) async {
+    Map json = await feedProvider.index(page: page);
     List<FeedModel> tmp = json['data'].map((m) => FeedModel.parse(m)).toList();
     (page == 1) ? feedList.assignAll(tmp) : feedList.addAll(tmp);
+  }
+
+  Future<bool> feedCreate(
+      String title, String price, String content, int? image) async {
+    Map body = await feedProvider.store(title, price, content, image);
+    if (body['result'] == 'ok') {
+      await feedIndex(); // 생성 후 목록 갱신
+      return true;
+    }
+    Get.snackbar('생성 에러', body['message'], snackPosition: SnackPosition.BOTTOM);
+    return false;
   }
 
   void addData() {

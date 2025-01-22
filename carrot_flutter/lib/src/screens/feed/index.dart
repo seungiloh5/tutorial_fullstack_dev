@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../../controllers/feed_controller.dart';
 import '../../widgets/buttons/category_button.dart';
 import '../../widgets/listitems/feed_list_item.dart';
+import '../feed/create.dart';
 
 class FeedIndex extends StatefulWidget {
   const FeedIndex({super.key});
@@ -19,16 +20,23 @@ class _FeedIndexState extends State<FeedIndex> {
   @override
   void initState() {
     super.initState();
-    feedController.feedIndex(_currentPage);
+    feedController.feedIndex(page: _currentPage);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: feedController.addData,
+        // onPressed: feedController.addData,
+        onPressed: () {
+          Get.to(() => const FeedCreate());
+        },
+        tooltip: '항목추가',
+        shape: const CircleBorder(),
+        backgroundColor: Theme.of(context).primaryColor,
         child: const Icon(
           Icons.add,
+          color: Colors.white,
         ),
       ),
       appBar: AppBar(
