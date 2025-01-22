@@ -6,6 +6,10 @@ const express = require('express');
 // Express 애플리케이션 생성
 const app = express();
 
+// 서버 연결을 위한 Cors 설정
+const cors = require('cors');
+app.use(cors());
+
 // 서버 포트를 설정
 // 환경 변수에 PORT 값이 설정되어 있으면 그 값을 사용하고, 그렇지 않으면 기본값으로 3000을 사용
 const port = process.env.PORT || 3000;
