@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '../../controllers/feed_controller.dart';
 import '../../widgets/buttons/category_button.dart';
 import '../../widgets/listitems/feed_list_item.dart';
-import '../feed/create.dart';
+import 'create.dart';
 
 class FeedIndex extends StatefulWidget {
   const FeedIndex({super.key});
@@ -14,13 +14,27 @@ class FeedIndex extends StatefulWidget {
 }
 
 class _FeedIndexState extends State<FeedIndex> {
-  int _currentPage = 1;
   final FeedController feedController = Get.put(FeedController());
+  int _currentPage = 1;
 
   @override
   void initState() {
     super.initState();
     feedController.feedIndex(page: _currentPage);
+  }
+
+  Future<void> _onRefresh() async {
+    _currentPage = 1;
+    await feedController.feedIndex(page: _currentPage);
+  }
+
+  bool _onNotification(ScrollNotification scrollInfo) {
+    if (scrollInfo is ScrollEndNotification &&
+        scrollInfo.metrics.extentAfter == 0) {
+      feedController.feedIndex(page: ++_currentPage);
+      return true;
+    }
+    return false;
   }
 
   @override
@@ -55,32 +69,41 @@ class _FeedIndexState extends State<FeedIndex> {
       ),
       body: Column(
         children: [
-          // CategoryBar
+          // 카테고리 바
           SizedBox(
             height: 40,
             child: ListView(
               scrollDirection: Axis.horizontal,
-              children: const [
-                CategoryButton(icon: Icons.menu),
+              children: [
+                CategoryButton(onTap: () {}, icon: Icons.menu),
                 SizedBox(width: 12),
-                CategoryButton(icon: Icons.search, title: '알바'),
+                CategoryButton(onTap: () {}, icon: Icons.search, title: '알바'),
                 SizedBox(width: 12),
-                CategoryButton(icon: Icons.home, title: '부동산'),
+                CategoryButton(onTap: () {}, icon: Icons.home, title: '부동산'),
                 SizedBox(width: 12),
-                CategoryButton(icon: Icons.car_crash, title: '중고차'),
+                CategoryButton(
+                    onTap: () {}, icon: Icons.car_crash, title: '중고차'),
               ],
             ),
           ),
-          // ListContent
+          // 중고 거래 목록
           Expanded(
             child: Obx(
-              () => ListView.builder(
-                itemCount: feedController.feedList.length,
-                itemBuilder: (context, index) {
-                  final item = feedController.feedList[index];
-                  return FeedListItem(item);
-                },
-              ),
+              () {
+                return NotificationListener<ScrollNotification>(
+                  onNotification: _onNotification,
+                  child: RefreshIndicator(
+                    onRefresh: _onRefresh,
+                    child: ListView.builder(
+                      itemCount: feedController.feedList.length,
+                      itemBuilder: (context, index) {
+                        final item = feedController.feedList[index];
+                        return FeedListItem(item);
+                      },
+                    ),
+                  ),
+                );
+              },
             ),
           ),
         ],
