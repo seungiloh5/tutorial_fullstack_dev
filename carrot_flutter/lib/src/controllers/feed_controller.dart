@@ -25,6 +25,29 @@ class FeedController extends GetxController {
     return false;
   }
 
+  feedUpdate(int id, String title, String priceString, String content,
+      int? image) async {
+    int price = int.tryParse(priceString) ?? 0; // int로 변환, 실패 시 0
+
+    Map body = await feedProvider.update(id, title, price, content, image);
+
+    if (body['result'] == 'ok') {
+      int index = feedList.indexWhere((feed) => feed.id == id);
+      if (index != -1) {
+        FeedModel updatedFeed = feedList[index].copyWith(
+          title: title,
+          price: price,
+          content: content,
+          imageId: image,
+        );
+        feedList[index] = updatedFeed;
+      }
+      return true;
+    }
+    Get.snackbar('수정 에러', body['message'], snackPosition: SnackPosition.BOTTOM);
+    return false;
+  }
+
   void addData() {
     final random = Random();
     final newItem = FeedModel.parse({

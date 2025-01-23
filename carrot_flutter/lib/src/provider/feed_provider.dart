@@ -11,6 +11,23 @@ class FeedProvider extends Provider {
     return response.body;
   }
 
+  // 피드 수정
+  Future<Map> update(
+      int id, String title, int price, String content, int? image) async {
+    final Map<String, dynamic> body = {
+      'title': title,
+      'price': price,
+      'content': content,
+    };
+
+    if (image != null) {
+      body['imageID'] = image.toString();
+    }
+
+    final response = await put('/api/feed/$id', body);
+    return response.body;
+  }
+
   /// 피드 생성
   Future<Map> store(
       String title, String price, String content, int? image) async {

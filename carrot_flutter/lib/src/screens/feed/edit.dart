@@ -3,84 +3,98 @@ import 'package:get/get.dart';
 
 import '../../controllers/feed_controller.dart';
 import '../../models/feed_model.dart';
+import '../../widgets/forms/label_textfield.dart';
 
 class FeedEdit extends StatefulWidget {
-  final FeedModel item;
-
-  const FeedEdit({Key? key, required this.item}) : super(key: key);
+  final FeedModel model;
+  const FeedEdit({required this.model, super.key});
 
   @override
   State<FeedEdit> createState() => _FeedEditState();
 }
 
 class _FeedEditState extends State<FeedEdit> {
-  late TextEditingController titleController;
-  late TextEditingController priceController;
-  final FeedController feedController = Get.find<FeedController>();
+  final feedController = Get.put(FeedController());
+  int? imageId;
+  late int _feedId;
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _priceController = TextEditingController();
+  final TextEditingController _contentController = TextEditingController();
+
+  _submit() async {
+    final result = await feedController.feedUpdate(
+      _feedId,
+      _titleController.text,
+      _priceController.text,
+      _contentController.text,
+      imageId,
+    );
+    if (result) {
+      Get.back();
+    }
+  }
 
   @override
   void initState() {
     super.initState();
-    // TextEditingController 초기화
-    titleController = TextEditingController(text: widget.item.title);
-    priceController = TextEditingController(text: widget.item.price.toString());
-  }
-
-  @override
-  void dispose() {
-    // TextEditingController 해제
-    titleController.dispose();
-    priceController.dispose();
-    super.dispose();
-  }
-
-  void _submit() {
-    final updatedItem = FeedModel.parse({
-      'id': widget.item.id,
-      'title': titleController.text,
-      'content': widget.item.content,
-      'price': int.tryParse(priceController.text) ?? widget.item.price,
-    });
-
-    feedController.updateData(updatedItem);
-
-    Get.back();
+    _feedId = widget.model.id;
+    _titleController.text = widget.model.title;
+    _priceController.text = widget.model.price.toString();
+    _contentController.text = widget.model.content;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('물품 수정'),
-      ),
+      appBar: AppBar(title: const Text('물건정보 수정')),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
-          children: <Widget>[
-            TextField(
-              controller: titleController,
-              decoration: const InputDecoration(
-                labelText: '제목',
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey),
-                ),
+          children: [
+            Expanded(
+              child: ListView(
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: Colors.grey, width: 1),
+                        ),
+                        child: const Icon(
+                          Icons.camera_alt_outlined,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  LabelTextField(
+                    label: '제목',
+                    hintText: '제목',
+                    controller: _titleController,
+                  ),
+                  LabelTextField(
+                    label: '가격',
+                    hintText: '가격을 입력해주세요.',
+                    controller: _priceController,
+                  ),
+                  LabelTextField(
+                    label: '자세한 설명',
+                    hintText: '자세한 설명을 입력하세요',
+                    controller: _contentController,
+                    maxLines: 6,
+                  ),
+                ],
               ),
             ),
-            const SizedBox(height: 20),
-            TextField(
-              controller: priceController,
-              decoration: const InputDecoration(
-                labelText: '가격',
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey),
-                ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 20),
+              child: ElevatedButton(
+                onPressed: _submit,
+                child: const Text('수정 완료'),
               ),
-              keyboardType: TextInputType.number,
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _submit,
-              child: const Text('수정하기'),
             ),
           ],
         ),

@@ -19,7 +19,7 @@ class FeedListItem extends StatelessWidget {
         //   context,
         //   MaterialPageRoute(builder: (context) => FeedEdit(item: item)),
         // );
-        Get.to(() => FeedEdit(item: data));
+        Get.to(() => FeedEdit(model: data));
       },
       child: Padding(
         padding: const EdgeInsets.all(12.0),
