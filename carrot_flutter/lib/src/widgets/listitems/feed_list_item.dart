@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../screens/feed/edit.dart';
 import '../../models/feed_model.dart';
+import '../../screens/feed/show.dart';
 
 // 이미지 크기
 const double _imageSize = 110;
@@ -19,7 +20,7 @@ class FeedListItem extends StatelessWidget {
         //   context,
         //   MaterialPageRoute(builder: (context) => FeedEdit(item: item)),
         // );
-        Get.to(() => FeedEdit(model: data));
+        Get.to(() => FeedShow(data.id));
       },
       child: Padding(
         padding: const EdgeInsets.all(12.0),

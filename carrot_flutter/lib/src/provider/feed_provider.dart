@@ -44,4 +44,14 @@ class FeedProvider extends Provider {
     final response = await post('/api/feed', body);
     return response.body;
   }
+
+  Future<Map> show(int id) async {
+    final response = await get('/api/feed/$id');
+    return response.body;
+  }
+
+  Future<Map> destroy(int id) async {
+    final response = await delete('/api/feed/$id');
+    return response.body;
+  }
 }
