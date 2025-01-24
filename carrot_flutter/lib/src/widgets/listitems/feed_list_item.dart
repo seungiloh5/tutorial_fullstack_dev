@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../screens/feed/edit.dart';
+import '../../controllers/feed_controller.dart';
 import '../../models/feed_model.dart';
 import '../../screens/feed/show.dart';
+import '../modal/confirm_modal.dart';
+import '../modal/more_bottom.dart';
 
 // 이미지 크기
 const double _imageSize = 110;
@@ -14,6 +16,7 @@ class FeedListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final FeedController feedController = Get.put(FeedController());
     return InkWell(
       onTap: () {
         // Navigator.push(
@@ -75,7 +78,63 @@ class FeedListItem extends StatelessWidget {
                 ),
                 // 기타 영역
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (context) {
+                        return MoreBottomModal(
+                          delete: data.isMe
+                              ? () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return ConfirmModal(
+                                        title: '삭제하기',
+                                        content:
+                                            '이 글을 삭제하시겠습니까? 삭제한 글은 다시 볼 수 없습니다.',
+                                        confirmText: '삭제하기',
+                                        confirmAction: () async {
+                                          bool result = await feedController
+                                              .feedDelete(data.id);
+                                          if (result) {
+                                            Navigator.pop(context);
+                                            Navigator.pop(context);
+                                          }
+                                        },
+                                        cancel: () {
+                                          Navigator.pop(context); // dialog 닫기
+                                        },
+                                      );
+                                    },
+                                  );
+                                }
+                              : null,
+                          cancelTap: () {
+                            Navigator.pop(context);
+                          },
+                          hideTap: () {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return ConfirmModal(
+                                    title: '글 숨기기',
+                                    content: '이 글을 숨기시겠습니까? 숨긴 글은 다시 볼 수 없습니다.',
+                                    confirmText: '숨기기',
+                                    confirmAction: () {
+                                      // 여기에 글을 숨기는 로직을 구현합니다.
+                                      Navigator.pop(context);
+                                      Navigator.pop(context);
+                                    },
+                                    cancel: () {
+                                      Navigator.pop(context); // dialog 닫기
+                                    },
+                                  );
+                                });
+                          },
+                        );
+                      },
+                    );
+                  },
                   icon:
                       const Icon(Icons.more_vert, color: Colors.grey, size: 16),
                 ),
