@@ -8,17 +8,23 @@ exports.register = async (req, res) => {
     let { count } = await repository.findByPhone(phone);
 
     if (count > 0) {
+        console.log("[Server] 중복된 휴대폰 번호가 존재합니다.");
         return res.send({result: 'fail', message: '중복된 휴대폰 번호가 존재합니다.'});
     }
 
     const result = await crypto.pbkdf2Sync(password, process.env.SALT_KEY, 50, 100, 'sha512');
+    console.log("[Server] 암호화된 비밀번호: ", result.toString('base64'));
 
     const { affectedRows, insertId } = await repository.register(phone, result.toString('base64'), name);
+    console.log("[Server] insertId: ", insertId);
+    console.log("[Server] affectedRows: ", affectedRows);
 
     if (affectedRows > 0) {
+        console.log("[Server] 회원가입 성공");
         const data = await jwt({ id: insertId, name });
         res.send({ result: 'ok', access_token: data });
     } else {
+        console.log("[Server] 회원가입 실패");
         res.send({ result: 'fail', message: '알 수 없는 오류' });
     }
 }
@@ -34,11 +40,12 @@ exports.login = async (req, res) => {
         return res.send({ result: 'fail', message: '휴대폰 번호 혹은 비밀번호를 확인해 주세요!' });
     } else {
         const data = await jwt({ id: item.id, name: item.name });
+        console.log("[Server] 로그인 성공");
         res.send({ result: 'ok', access_token: data});
     }
 }
 
-exports.phone = (req, res) => {
+exports.phone = async (req, res) => {
     const { phone } = req.body;
 
     // 핸드폰 번호가 없을 경우
@@ -46,21 +53,25 @@ exports.phone = (req, res) => {
         return res.status(400).json({ result: "error", message: "핸드폰 번호가 필요합니다." });
     } 
 
-    // 인증번호 생성
-    const verificationCode = "123456";
+    // 랜덤 네자리 인증번호 생성
+    const verificationCode = '1234'
+    console.log("[Server] 인증번호: ", verificationCode);
 
     // 만료 시간 계산
     const now = new Date();
-    now.setMinutes(now.getMinutes() + 3);
+    // now.setMinutes(now.getMinutes() + 3); // 분을 더함
+    now.setSeconds(now.getSeconds() + 30); // 초를 더함
     const expiredTime = now.toISOString().replace('T', ' ').substring(0, 19);
+    console.log("[Server] 만료시간: ", expiredTime);
 
     res.json({result: "ok", phone, verificationCode, expiredTime});
 }
 
-exports.phoneVerify = (req, res) => {
+exports.phoneVerify = async (req, res) => {
     const code = req.body.code;
 
-    if (code === '123456') {
+    if (code === '1234') {
+        console.log("[Server] 인증 성공");
         res.json({result: "ok", message: "성공"});
         return;
     }

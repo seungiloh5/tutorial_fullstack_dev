@@ -14,13 +14,15 @@ class AuthController extends GetxController {
   String? phoneNumber; // requestVerificationCode 함수에서 기록한 폰번호
   Timer? countdownTimer;
 
-  Future<bool> register(String password, String name, int? profile) async {
+  Future<bool> register(String name, String password, int? profile) async {
     Map body =
         await authProvider.register(phoneNumber!, password, name, profile);
+    print("[AuthController] 회원가입 결과: $body");
     if (body['result'] == 'ok') {
       String token = body['access_token'];
       log("token: $token"); // developer 패키지안에 log 함수
       Global.accessToken = token;
+      print("[AuthController] 회원가입 성공");
       return true;
     }
     Get.snackbar('회원가입 에러', body['message'],
@@ -31,10 +33,10 @@ class AuthController extends GetxController {
   // 휴대폰 인증 코드를 요청하는 함수
   Future<void> requestVerificationCode(String phone) async {
     Map body = await authProvider.requestPhoneCode(phone);
-    print('controller에서 인증코드 받음: ${body}');
+    print('[AuthController] 인증코드: ${body['verificationCode']}');
     if (body['result'] == 'ok') {
       phoneNumber = phone;
-      DateTime expiryTime = DateTime.parse(body['expired']);
+      DateTime expiryTime = DateTime.parse(body['expiredTime']);
       _startCountdown(expiryTime);
     }
   }
@@ -43,6 +45,7 @@ class AuthController extends GetxController {
   Future<bool> verifyPhoneNumber(String userInputCode) async {
     Map body = await authProvider.verifyPhoneNumber(userInputCode);
     if (body['result'] == 'ok') {
+      print('[AuthController] 인증완료');
       return true;
     }
     Get.snackbar('인증 번호 에러', body['message'],
@@ -118,9 +121,10 @@ class AuthController extends GetxController {
   Future<bool> login(String phone, String password) async {
     Map body = await authProvider.login(phone, password);
     if (body['result'] == 'ok') {
-      String token = body['acess_token'];
+      String token = body['access_token'];
       log("token: $token");
       Global.accessToken = token;
+      print("[AuthController] 로그인 성공");
       return true;
     }
     Get.snackbar('로그인 에러', body['message'],

@@ -6,7 +6,7 @@ exports.register = async (phone, password, name) => {
 }
 
 exports.login = async (phone, password) => {
-    const query = `SELECT * FROM users WHERE phone = ? AND password = ?`;
+    const query = `SELECT * FROM user WHERE phone = ? AND password = ?`;
     let result = await pool.query(query, [phone, password]);
     return (result.length < 0) ? null : result[0];
 }

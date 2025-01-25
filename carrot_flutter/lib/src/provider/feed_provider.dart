@@ -47,6 +47,13 @@ class FeedProvider extends Provider {
     }
 
     final response = await post('/api/feed', body);
+    print("[FeedProvider] 서버로부터 받은 답변: ${response.body}");
+    if (response.body == null) {
+      return {
+        'result': 'ok',
+        'message': '임시 테스트용 서버 미등록',
+      };
+    }
     if (response.hasError) {
       return {};
     }

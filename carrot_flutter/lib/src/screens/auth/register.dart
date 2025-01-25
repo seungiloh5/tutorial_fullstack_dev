@@ -4,7 +4,7 @@ import '../../controllers/auth_controller.dart';
 import '../../screens/auth/register_form.dart';
 
 class Register extends StatefulWidget {
-  const Register({Key? key}) : super(key: key);
+  const Register({super.key});
 
   @override
   State<Register> createState() => _RegisterState();
@@ -59,7 +59,7 @@ class _RegisterState extends State<Register> {
               controller: _phoneController,
               keyboardType: TextInputType.phone,
               style: const TextStyle(fontSize: 16),
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: '휴대폰 번호를 입력해주세요',
               ),
             ),
@@ -77,18 +77,18 @@ class _RegisterState extends State<Register> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     TextField(
                       controller: _codeController,
-                      style: TextStyle(fontSize: 16),
-                      decoration: InputDecoration(
+                      style: const TextStyle(fontSize: 16),
+                      decoration: const InputDecoration(
                         hintText: '인증 번호를 입력해주세요',
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: _confirm,
-                      child: Text('인증 번호 확인'),
+                      child: const Text('인증 번호 확인'),
                     ),
                   ],
                 ),

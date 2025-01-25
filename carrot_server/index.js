@@ -8,7 +8,6 @@ const app = express();
 
 // 서버 연결을 위한 Cors 설정
 const cors = require('cors');
-app.use(cors());
 
 // 서버 포트를 설정
 // 환경 변수에 PORT 값이 설정되어 있으면 그 값을 사용하고, 그렇지 않으면 기본값으로 3000을 사용
@@ -30,6 +29,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 // 라우터를 애플리케이션에 등록
 // 모든 경로에 대해 router를 사용하도록 설정
 app.use('/', router);
+
+app.use(cors());
 
 // 서버 시작
 // 지정된 포트에서 서버를 시작하고, 성공적으로 시작되면 콘솔에 메시지를 출력

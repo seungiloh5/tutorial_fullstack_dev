@@ -76,11 +76,11 @@ class _FeedIndexState extends State<FeedIndex> {
               scrollDirection: Axis.horizontal,
               children: [
                 CategoryButton(onTap: () {}, icon: Icons.menu),
-                SizedBox(width: 12),
+                const SizedBox(width: 12),
                 CategoryButton(onTap: () {}, icon: Icons.search, title: '알바'),
-                SizedBox(width: 12),
+                const SizedBox(width: 12),
                 CategoryButton(onTap: () {}, icon: Icons.home, title: '부동산'),
-                SizedBox(width: 12),
+                const SizedBox(width: 12),
                 CategoryButton(
                     onTap: () {}, icon: Icons.car_crash, title: '중고차'),
               ],
