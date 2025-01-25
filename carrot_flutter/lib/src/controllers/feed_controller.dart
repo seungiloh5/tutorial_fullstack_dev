@@ -11,7 +11,7 @@ class FeedController extends GetxController {
   feedIndex({int page = 1}) async {
     Map json = await feedProvider.index(page);
     List<FeedModel> tmp =
-        json['data'].map<FeedModel>((m) => FeedModel.parse(m)).toList();
+        (json['data'] ?? []).map<FeedModel>((m) => FeedModel.parse(m)).toList();
     (page == 1) ? feedList.assignAll(tmp) : feedList.addAll(tmp);
   }
 

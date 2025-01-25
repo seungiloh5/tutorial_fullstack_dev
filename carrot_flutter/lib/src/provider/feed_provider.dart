@@ -1,4 +1,3 @@
-import 'package:get/get.dart';
 import 'provider.dart';
 
 class FeedProvider extends Provider {
@@ -8,7 +7,10 @@ class FeedProvider extends Provider {
       '/api/feed',
       query: {'page': '$page'},
     );
-    return response.body;
+    if (response.hasError) {
+      return {};
+    }
+    return response.body ?? {};
   }
 
   // 피드 수정
@@ -25,7 +27,10 @@ class FeedProvider extends Provider {
     }
 
     final response = await put('/api/feed/$id', body);
-    return response.body;
+    if (response.hasError) {
+      return {};
+    }
+    return response.body ?? {};
   }
 
   /// 피드 생성
@@ -42,16 +47,25 @@ class FeedProvider extends Provider {
     }
 
     final response = await post('/api/feed', body);
-    return response.body;
+    if (response.hasError) {
+      return {};
+    }
+    return response.body ?? {};
   }
 
   Future<Map> show(int id) async {
     final response = await get('/api/feed/$id');
-    return response.body;
+    if (response.hasError) {
+      return {};
+    }
+    return response.body ?? {};
   }
 
   Future<Map> destroy(int id) async {
     final response = await delete('/api/feed/$id');
-    return response.body;
+    if (response.hasError) {
+      return {};
+    }
+    return response.body ?? {};
   }
 }
