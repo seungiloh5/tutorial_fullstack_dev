@@ -6,6 +6,7 @@ import '../../models/feed_model.dart';
 import '../../screens/feed/show.dart';
 import '../modal/confirm_modal.dart';
 import '../modal/more_bottom.dart';
+import '../../screens/feed/edit.dart';
 
 // 이미지 크기
 const double _imageSize = 110;
@@ -19,11 +20,8 @@ class FeedListItem extends StatelessWidget {
     final FeedController feedController = Get.put(FeedController());
     return InkWell(
       onTap: () {
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(builder: (context) => FeedEdit(item: item)),
-        // );
         Get.to(() => FeedShow(data.id));
+        // Get.to(() => FeedEdit(model: data)); // 피드 수정
       },
       child: Padding(
         padding: const EdgeInsets.all(12.0),
@@ -41,12 +39,6 @@ class FeedListItem extends StatelessWidget {
                     width: _imageSize,
                     height: _imageSize,
                   ),
-                  // child: Image.network(
-                  //   "https://example.com/image.jpg",
-                  //   width: _imageSize,
-                  //   height: _imageSize,
-                  //   fit: BoxFit.cover,
-                  // ),
                 ),
                 // 정보 영역
                 Expanded(

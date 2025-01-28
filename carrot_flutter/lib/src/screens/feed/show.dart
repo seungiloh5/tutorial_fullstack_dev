@@ -35,7 +35,12 @@ class _FeedShowState extends State<FeedShow> {
               pinned: true,
               flexibleSpace: FlexibleSpaceBar(
                 background: feed != null
-                    ? Image.network(feed.imageUrl, fit: BoxFit.cover)
+                    ? Image.asset(
+                        'assets/images/pikachu_flutter.png',
+                        fit: BoxFit.cover,
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height / 3,
+                      )
                     : null,
               ),
             );

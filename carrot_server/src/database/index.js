@@ -15,6 +15,12 @@ exports.pool = mysql.createPool(
 
 // pool.query, pool.execute 함수를 통해 SQL을 실행할 때마다 연결이 생성되고 해제됨
 exports.pool.query = async (queryString, params) => {
-    const [results] = await this.pool.execute(queryString, params);  
-    return results;
+    try {
+        const [results] = await this.pool.execute(queryString, params);  
+        return results;
+    } catch (err) {
+        console.error('[Server] Query error:', err);
+        throw err;
+    }
+
 };
