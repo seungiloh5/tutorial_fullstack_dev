@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
           final item = feedList.firstWhere((e) => e['id'] == id);
           print(item);
           return MaterialPageRoute(
-            builder: (context) => FeedShow(item),
+            builder: (context) => FeedShow(1),
           );
         }
         return MaterialPageRoute(

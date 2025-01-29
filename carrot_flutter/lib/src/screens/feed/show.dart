@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controllers/feed_controller.dart';
 import '../../widgets/listitems/user_list_item.dart';
+import '../../shared/timeutil.dart';
 
 class FeedShow extends StatefulWidget {
   final int feedId;
@@ -67,7 +68,8 @@ class _FeedShowState extends State<FeedShow> {
                             ),
                             const SizedBox(height: 12),
                             Text(
-                              '${feedController.currentFeed.value!.createdAt}',
+                              TimeUtil.parse(
+                                  feedController.currentFeed.value?.createdAt),
                               style: textTheme.bodyMedium
                                   ?.copyWith(color: Colors.grey),
                             ),

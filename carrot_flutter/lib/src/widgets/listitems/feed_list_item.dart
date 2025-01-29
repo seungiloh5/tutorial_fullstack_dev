@@ -7,6 +7,7 @@ import '../../screens/feed/show.dart';
 import '../modal/confirm_modal.dart';
 import '../modal/more_bottom.dart';
 import '../../screens/feed/edit.dart';
+import '../../shared/timeutil.dart';
 
 // 이미지 크기
 const double _imageSize = 110;
@@ -27,6 +28,7 @@ class FeedListItem extends StatelessWidget {
         padding: const EdgeInsets.all(12.0),
         child: Stack(
           children: [
+            Container(width: 100, height: 100, color: Colors.blue),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -55,15 +57,16 @@ class FeedListItem extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              '동네이름',
+                              TimeUtil.parse(data.createdAt),
                               style: TextStyle(color: Colors.grey),
                             ),
-                            Text('N 분전', style: TextStyle(color: Colors.grey)),
                           ],
                         ),
-                        Text(data.price.toString(),
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold)),
+                        Text(
+                          data.price.toString(),
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
                       ],
                     ),
                   ),
