@@ -1,3 +1,4 @@
+import 'package:carrot_flutter/src/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../widgets/listitems/user_mypage.dart';
@@ -9,13 +10,22 @@ class MyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userController = Get.put(UserController());
     return Scaffold(
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // 프로필
-            UserMyPage(UserModel(id: 1, name: '홍길동')),
+            Obx(
+              () {
+                if (userController.my.value == null) {
+                  return const Center(child: CircularProgressIndicator());
+                } else {
+                  return UserMyPage(userController.my.value!);
+                }
+              },
+            ),
             // 기타 메뉴
             Padding(
               padding: const EdgeInsets.all(12.0),

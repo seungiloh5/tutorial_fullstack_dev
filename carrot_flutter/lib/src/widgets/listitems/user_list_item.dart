@@ -16,7 +16,11 @@ class UserListItem extends StatelessWidget {
       ),
       child: Row(
         children: [
-          CircleAvatar(backgroundImage: NetworkImage(user.profileUrl)),
+          CircleAvatar(
+            backgroundImage: user.profileUrl != null
+                ? NetworkImage(user.profileUrl)
+                : AssetImage('assets/images/pikachu_flutter.png'),
+          ),
           const SizedBox(width: 10),
           Text(user.name),
         ],

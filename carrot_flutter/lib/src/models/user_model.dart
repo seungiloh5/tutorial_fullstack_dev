@@ -5,9 +5,8 @@ class UserModel {
   late String name;
   int? profile;
 
-  get profileUrl => (profile != null)
-      ? "${Global.baseUrl}/file/$profile"
-      : "https://example.com/image.jpg";
+  get profileUrl =>
+      (profile != null) ? "${Global.baseUrl}/file/$profile" : null;
 
   UserModel({required this.id, required this.name});
 

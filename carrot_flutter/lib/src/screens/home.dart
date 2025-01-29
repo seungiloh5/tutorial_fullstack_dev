@@ -1,5 +1,6 @@
+import 'package:carrot_flutter/src/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
 import 'feed/index.dart';
 import '../screens/my/mypage.dart';
 
@@ -37,12 +38,20 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final userController = Get.put(UserController());
+
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    userController.myInfo();
   }
 
   @override

@@ -17,8 +17,10 @@ class UserMyPage extends StatelessWidget {
             Row(
               children: [
                 CircleAvatar(
-                    // backgroundImage: NetworkImage(user.profileUrl),
-                    ),
+                  backgroundImage: user.profileUrl != null
+                      ? NetworkImage(user.profileUrl)
+                      : AssetImage('assets/images/pikachu_flutter.png'),
+                ),
                 const SizedBox(width: 12),
                 Text(user.name, style: Theme.of(context).textTheme.labelLarge),
               ],

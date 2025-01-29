@@ -86,6 +86,7 @@ exports.show = async (req, res) => {
     if (item == null) {
         return res.send({ result: 'fail', message: '회원을 찾을 수 없습니다.'});
     } else {
+        console.log("[Server] 내 정보 조회 성공");
         res.send({ result: 'ok', data: item});
     }
 }
