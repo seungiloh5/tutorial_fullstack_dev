@@ -79,6 +79,7 @@ exports.phoneVerify = async (req, res) => {
 }
 
 exports.show = async (req, res) => {
+
     const user = req.user;
 
     const item = await repository.findId(user.id);
@@ -99,6 +100,7 @@ exports.update = async (req, res) => {
 
     if(result.affectedRows > 0) {
         const item = await repository.findId(user.id);
+        console.log("[Server] 내 정보 수정 성공");
         res.send({ result: 'ok', data: item});
     } else {
         res.send({ result: 'fail', message: '오류가 발생하였습니다.' });

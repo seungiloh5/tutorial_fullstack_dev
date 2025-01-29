@@ -14,4 +14,14 @@ class UserController extends GetxController {
     }
     Get.snackbar('회원 에러', body['message'], snackPosition: SnackPosition.BOTTOM);
   }
+
+  Future<bool> updateInfo(String name, int? image) async {
+    Map body = await userProvider.update(name, image);
+    if (body['result'] == 'ok') {
+      my.value = UserModel.parse(body['data']);
+      return true;
+    }
+    Get.snackbar('회원 에러', body['message'], snackPosition: SnackPosition.BOTTOM);
+    return false;
+  }
 }

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
 import '../../models/user_model.dart';
+import '../../screens/my/edit.dart';
 
 class UserMyPage extends StatelessWidget {
   final UserModel user;
@@ -8,7 +11,9 @@ class UserMyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: null,
+      onTap: () {
+        Get.to(() => const MyEdit());
+      },
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Row(
@@ -22,7 +27,10 @@ class UserMyPage extends StatelessWidget {
                       : AssetImage('assets/images/pikachu_flutter.png'),
                 ),
                 const SizedBox(width: 12),
-                Text(user.name, style: Theme.of(context).textTheme.labelLarge),
+                Text(
+                  user.name,
+                  style: Theme.of(context).textTheme.labelLarge,
+                ),
               ],
             ),
             Container(
