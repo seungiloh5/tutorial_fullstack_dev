@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../controllers/user_controller.dart';
+import '../../controllers/file_controller.dart';
+import '../../widgets/buttons/circle_image.dart';
 import '../../widgets/forms/label_textfield.dart';
 
 class MyEdit extends StatefulWidget {
@@ -13,23 +15,28 @@ class MyEdit extends StatefulWidget {
 
 class _MyEditState extends State<MyEdit> {
   final userController = Get.put(UserController());
+  final fileController = Get.put(FileController());
   final _nameController = TextEditingController();
+
+  _submit() async {
+    bool result = await userController.updateInfo(
+      _nameController.text,
+      fileController.imageId.value,
+    );
+    if (result) {
+      Get.back();
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _nameController.text = userController.my.value!.name;
+    fileController.imageId.value = userController.my.value!.profile;
+  }
 
   @override
   Widget build(BuildContext context) {
-    _submit() async {
-      bool result = await userController.updateInfo(_nameController.text, null);
-      if (result) {
-        Get.back();
-      }
-    }
-
-    @override
-    void initState() {
-      super.initState();
-      _nameController.text = userController.my.value!.name;
-    }
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('프로필 수정'),
@@ -37,10 +44,11 @@ class _MyEditState extends State<MyEdit> {
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         children: [
-          const CircleAvatar(
-            radius: 40,
-            backgroundColor: Colors.grey,
-            child: Icon(Icons.camera_alt, color: Colors.white, size: 30),
+          InkWell(
+            onTap: fileController.upload,
+            child: Obx(
+              () => CircleImage(fileController.imageUrl),
+            ),
           ),
           const SizedBox(height: 16),
           LabelTextField(

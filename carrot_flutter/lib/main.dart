@@ -12,5 +12,11 @@ Future<void> main() async {
   String? token = box.read('access_token');
   bool isLogin = (token != null) ? true : false; // 토큰이 있으면 로그인 상태
 
+  if (isLogin) {
+    print('로그인 상태');
+  } else {
+    print('로그아웃 상태');
+  }
+
   runApp(MyApp(isLogin));
 }

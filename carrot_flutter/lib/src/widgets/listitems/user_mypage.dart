@@ -24,7 +24,7 @@ class UserMyPage extends StatelessWidget {
                 CircleAvatar(
                   backgroundImage: user.profileUrl != null
                       ? NetworkImage(user.profileUrl)
-                      : AssetImage('assets/images/pikachu_flutter.png'),
+                      : AssetImage('assets/images/no_image.png'),
                 ),
                 const SizedBox(width: 12),
                 Text(

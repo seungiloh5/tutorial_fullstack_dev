@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../controllers/auth_controller.dart';
+import '../../widgets/forms/label_textfield.dart';
+import '../../controllers/file_controller.dart';
+import '../../widgets/buttons/circle_image.dart';
 import '../home.dart';
-import 'package:carrot_flutter/src/widgets/forms/label_textfield.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({super.key});
@@ -13,6 +16,7 @@ class RegisterForm extends StatefulWidget {
 
 class _RegisterFormState extends State<RegisterForm> {
   final authController = Get.put(AuthController());
+  final fileController = Get.put(FileController());
   final _passwordController = TextEditingController();
   final _passwordConfirmController = TextEditingController();
   final _nameController = TextEditingController();
@@ -21,7 +25,7 @@ class _RegisterFormState extends State<RegisterForm> {
     bool result = await authController.register(
       _nameController.text,
       _passwordController.text,
-      null,
+      fileController.imageId.value,
     );
     if (result) {
       Get.offAll(() => const Home());
@@ -37,10 +41,11 @@ class _RegisterFormState extends State<RegisterForm> {
         child: ListView(
           children: [
             // 프로필 이미지
-            const CircleAvatar(
-              radius: 40,
-              backgroundColor: Colors.grey,
-              child: Icon(Icons.camera_alt, color: Colors.white, size: 30),
+            InkWell(
+              onTap: fileController.upload,
+              child: Obx(
+                () => CircleImage(fileController.imageUrl),
+              ),
             ),
             const SizedBox(height: 16),
             // 닉네임

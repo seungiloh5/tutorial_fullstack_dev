@@ -14,8 +14,7 @@ class Home extends StatelessWidget {
             flexibleSpace: const FlexibleSpaceBar(
               title: Text("피드 상세 보기"),
               background: Image(
-                image: AssetImage(
-                    'assets/images/pikachu_flutter.png'), // 배경 이미지 예시
+                image: AssetImage('assets/images/no_image.png'), // 배경 이미지 예시
                 fit: BoxFit.cover,
               ),
             ),

@@ -19,7 +19,7 @@ class UserListItem extends StatelessWidget {
           CircleAvatar(
             backgroundImage: user.profileUrl != null
                 ? NetworkImage(user.profileUrl)
-                : AssetImage('assets/images/pikachu_flutter.png'),
+                : AssetImage('assets/images/no_image.png'),
           ),
           const SizedBox(width: 10),
           Text(user.name),

@@ -36,7 +36,7 @@ class _FeedShowState extends State<FeedShow> {
               flexibleSpace: FlexibleSpaceBar(
                 background: feed != null
                     ? Image.asset(
-                        'assets/images/pikachu_flutter.png',
+                        'assets/images/no_image.png',
                         fit: BoxFit.cover,
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height / 3,

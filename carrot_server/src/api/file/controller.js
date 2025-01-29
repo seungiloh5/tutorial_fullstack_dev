@@ -3,6 +3,10 @@ const repository = require('./repository');
 exports.upload = async (req, res) => {
     const file = req.file;
 
+    console.log(file.origialname);
+    console.log(file.path);
+    console.log(file.size);
+
     const {affectedRows, insertId} = await repository.create(
         file.originalname, file.path, file.size);
 

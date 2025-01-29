@@ -34,7 +34,7 @@ class FeedListItem extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(10.0),
                   child: Image.asset(
-                    'assets/images/pikachu_flutter.png',
+                    'assets/images/no_image.png',
                     fit: BoxFit.cover,
                     width: _imageSize,
                     height: _imageSize,
