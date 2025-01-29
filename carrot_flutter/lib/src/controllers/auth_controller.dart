@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
-import 'dart:developer';
+import 'package:get_storage/get_storage.dart';
 import 'package:get/get.dart';
-import '../provider/auth_provider.dart';
-import '../shared/global.dart';
+
+import 'dart:developer';
 import 'dart:async';
+
+import '../provider/auth_provider.dart';
+// import '../shared/global.dart';
 
 class AuthController extends GetxController {
   final authProvider = Get.put(AuthProvider());
+  final box = GetStorage();
 
   final RxBool isButtonEnabled = false.obs;
   final RxBool showVerifyForm = false.obs;
@@ -20,8 +24,9 @@ class AuthController extends GetxController {
     print("[AuthController] 회원가입 결과: $body");
     if (body['result'] == 'ok') {
       String token = body['access_token'];
+      await box.write('access_token', token);
       log("token: $token"); // developer 패키지안에 log 함수
-      Global.accessToken = token;
+      // Global.accessToken = token;
       print("[AuthController] 회원가입 성공");
       return true;
     }
@@ -123,7 +128,8 @@ class AuthController extends GetxController {
     if (body['result'] == 'ok') {
       String token = body['access_token'];
       log("token: $token");
-      Global.accessToken = token;
+      // Global.accessToken = token;
+      await box.write('access_token', token);
       print("[AuthController] 로그인 성공");
       return true;
     }
