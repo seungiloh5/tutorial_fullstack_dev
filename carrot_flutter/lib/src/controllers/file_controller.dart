@@ -18,9 +18,7 @@ class FileController extends GetxController {
       print("[FileController] 이미지 선택 실패");
       return;
     }
-    print('1');
     Map body = await provider.imageUpload(image.name, image.path);
-    print('2');
     if (body['result'] == 'ok') {
       print("[FileController] 이미지 업로드 성공}");
       imageId.value = body['data'] as int;

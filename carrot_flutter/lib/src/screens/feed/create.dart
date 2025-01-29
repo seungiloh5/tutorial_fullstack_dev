@@ -1,7 +1,10 @@
-import '../../controllers/feed_controller.dart';
-import '../../widgets/forms/label_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../controllers/feed_controller.dart';
+import '../../controllers/file_controller.dart';
+import '../../widgets/forms/label_textfield.dart';
+import '../../widgets/buttons/feed_image.dart';
 
 class FeedCreate extends StatefulWidget {
   const FeedCreate({super.key});
@@ -12,7 +15,7 @@ class FeedCreate extends StatefulWidget {
 
 class _FeedCreateState extends State<FeedCreate> {
   final feedController = Get.put(FeedController());
-  int? imageId;
+  final fileController = Get.put(FileController());
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _contentController = TextEditingController();
@@ -22,7 +25,7 @@ class _FeedCreateState extends State<FeedCreate> {
       _titleController.text,
       _priceController.text,
       _contentController.text,
-      imageId,
+      fileController.imageId.value,
     );
     if (result) {
       Get.back();
@@ -40,20 +43,11 @@ class _FeedCreateState extends State<FeedCreate> {
             Expanded(
               child: ListView(
                 children: [
-                  Row(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: Colors.grey, width: 1),
-                        ),
-                        child: const Icon(
-                          Icons.camera_alt_outlined,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ],
+                  InkWell(
+                    onTap: fileController.upload,
+                    child: Obx(
+                      () => FeedImage(fileController.imageUrl),
+                    ),
                   ),
                   const SizedBox(height: 16),
                   // 피트 타이틀
