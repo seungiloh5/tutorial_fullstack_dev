@@ -16,6 +16,14 @@ class FeedProvider extends Provider {
     return response.body ?? {};
   }
 
+  Future<Map> myIndex(int page) async {
+    final response = await get('/api/user/my/feed', query: {'page': '$page'});
+    if (response.hasError) {
+      return {};
+    }
+    return response.body ?? {};
+  }
+
   // 피드 수정
   Future<Map> update(
       int id, String title, int price, String content, int? image) async {

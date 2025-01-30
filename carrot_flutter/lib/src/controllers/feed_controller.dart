@@ -7,10 +7,12 @@ class FeedController extends GetxController {
   final feedProvider = Get.put(FeedProvider());
   final RxList<FeedModel> feedList = <FeedModel>[].obs;
   final RxList<FeedModel> searchList = <FeedModel>[].obs;
+  final RxList<FeedModel> myFeedList = <FeedModel>[].obs;
   final Rx<FeedModel?> currentFeed = Rx<FeedModel?>(null);
 
   feedIndex({int page = 1}) async {
     Map json = await feedProvider.index(page);
+    // p.459라 약간 다름
     List<FeedModel> tmp =
         (json['data'] ?? []).map<FeedModel>((m) => FeedModel.parse(m)).toList();
     (page == 1) ? feedList.assignAll(tmp) : feedList.addAll(tmp);
@@ -21,6 +23,13 @@ class FeedController extends GetxController {
     List<FeedModel> tmp =
         (json['data'] ?? []).map<FeedModel>((m) => FeedModel.parse(m)).toList();
     (page == 1) ? searchList.assignAll(tmp) : searchList.addAll(tmp);
+  }
+
+  myIndex({int page = 1}) async {
+    Map json = await feedProvider.myIndex(page);
+    List<FeedModel> tmp =
+        json['data'].map<FeedModel>((m) => FeedModel.parse(m)).toList();
+    (page == 1) ? myFeedList.assignAll(tmp) : myFeedList.addAll(tmp);
   }
 
   Future<bool> feedCreate(

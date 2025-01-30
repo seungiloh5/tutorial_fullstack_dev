@@ -5,6 +5,7 @@ import '../../controllers/user_controller.dart';
 import '../../controllers/auth_controller.dart';
 import '../../widgets/listitems/user_mypage.dart';
 import '../../models/user_model.dart';
+import '../../screens/feed/my.dart';
 import '../../screens/my/webpage.dart';
 import '../../screens/auth/intro.dart';
 
@@ -38,9 +39,12 @@ class MyPage extends StatelessWidget {
                 style: Theme.of(context).textTheme.labelLarge,
               ),
             ),
-            const ListTile(
+            ListTile(
               title: Text('판매내역'),
               leading: Icon(Icons.receipt_long_outlined),
+              onTap: () {
+                Get.to(() => const FeedMy());
+              },
             ),
             ListTile(
               title: Text('로그아웃'),
