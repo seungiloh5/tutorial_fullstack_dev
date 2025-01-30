@@ -1,4 +1,5 @@
 const repository = require('./repository');
+const favoriteRepository = require('./favorite/repository');
 
 const user_Id = 1; // 임시로 사용자 ID를 1로 설정
 
@@ -119,4 +120,18 @@ exports.myFeed = async (req, res) => {
     const modifiedItems = items.map(item => ({...item, is_me: true}));
 
     res.json({result: 'ok', data: modifiedItems});
+};
+
+exports.favoriteToggle = async (req, res) => {
+    try {
+        const feedId = req.params.id;
+        const userId = req.user.id;
+
+        const result = await favoriteRepository.favoriteToggle(userId, feedId);
+
+        res.send({result: 'ok', action: result.result});
+    } catch (error) {
+        console.error(error);
+        res.send({result: 'fail', message: '오류가 발생했습니다.'});
+    }
 };
