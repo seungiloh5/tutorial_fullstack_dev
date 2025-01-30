@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../../controllers/feed_controller.dart';
 import '../../widgets/buttons/category_button.dart';
 import '../../widgets/listitems/feed_list_item.dart';
+import '../../screens/feed/search_form.dart';
 import 'create.dart';
 
 class FeedIndex extends StatefulWidget {
@@ -58,7 +59,9 @@ class _FeedIndexState extends State<FeedIndex> {
         title: const Text('동네생활'),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.to(() => const FeedSearchForm());
+            },
             icon: const Icon(Icons.search),
           ),
           IconButton(
