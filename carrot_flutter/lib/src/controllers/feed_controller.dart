@@ -5,7 +5,8 @@ import '../models/feed_model.dart';
 
 class FeedController extends GetxController {
   final feedProvider = Get.put(FeedProvider());
-  RxList<FeedModel> feedList = <FeedModel>[].obs;
+  final RxList<FeedModel> feedList = <FeedModel>[].obs;
+  final RxList<FeedModel> searchList = <FeedModel>[].obs;
   final Rx<FeedModel?> currentFeed = Rx<FeedModel?>(null);
 
   feedIndex({int page = 1}) async {
@@ -13,6 +14,13 @@ class FeedController extends GetxController {
     List<FeedModel> tmp =
         (json['data'] ?? []).map<FeedModel>((m) => FeedModel.parse(m)).toList();
     (page == 1) ? feedList.assignAll(tmp) : feedList.addAll(tmp);
+  }
+
+  searchIndex(String keyword, {int page = 1}) async {
+    Map json = await feedProvider.index(page, keyword: keyword);
+    List<FeedModel> tmp =
+        (json['data'] ?? []).map<FeedModel>((m) => FeedModel.parse(m)).toList();
+    (page == 1) ? searchList.assignAll(tmp) : searchList.addAll(tmp);
   }
 
   Future<bool> feedCreate(

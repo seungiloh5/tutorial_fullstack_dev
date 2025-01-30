@@ -2,11 +2,14 @@ import 'provider.dart';
 
 class FeedProvider extends Provider {
   /// 피드 목록 조회
-  Future<Map> index(int page) async {
-    final response = await get(
-      '/api/feed',
-      query: {'page': '$page'},
-    );
+  Future<Map> index(int page, {String? keyword}) async {
+    final query = {'page': '$page'};
+
+    if (keyword != null) {
+      query['keyword'] = keyword;
+    }
+
+    final response = await get('/api/feed', query: query);
     if (response.hasError) {
       return {};
     }
