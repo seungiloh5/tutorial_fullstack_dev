@@ -1,9 +1,12 @@
-import 'package:carrot_flutter/src/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../controllers/user_controller.dart';
+import '../../controllers/auth_controller.dart';
 import '../../widgets/listitems/user_mypage.dart';
 import '../../models/user_model.dart';
 import '../../screens/my/webpage.dart';
+import '../../screens/auth/intro.dart';
 
 class MyPage extends StatelessWidget {
   const MyPage({super.key});
@@ -11,6 +14,7 @@ class MyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userController = Get.put(UserController());
+    final authController = Get.put(AuthController());
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -38,9 +42,13 @@ class MyPage extends StatelessWidget {
               title: Text('판매내역'),
               leading: Icon(Icons.receipt_long_outlined),
             ),
-            const ListTile(
+            ListTile(
               title: Text('로그아웃'),
               leading: Icon(Icons.logout_outlined),
+              onTap: () async {
+                await authController.logout();
+                Get.offAll(() => const Intro());
+              },
             ),
             const Divider(),
             ListTile(

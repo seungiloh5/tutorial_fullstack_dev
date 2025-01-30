@@ -18,6 +18,10 @@ class AuthController extends GetxController {
   String? phoneNumber; // requestVerificationCode 함수에서 기록한 폰번호
   Timer? countdownTimer;
 
+  Future<void> logout() async {
+    await box.remove('access_token');
+  }
+
   Future<bool> register(String name, String password, int? profile) async {
     Map body =
         await authProvider.register(phoneNumber!, password, name, profile);
