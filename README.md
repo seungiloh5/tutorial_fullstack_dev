@@ -41,3 +41,4 @@
     - 11장 3 Timeago
     - 11장 4 WebViewFlutter
     - 12장 1 검색
+    - 12장 2 로그아웃
