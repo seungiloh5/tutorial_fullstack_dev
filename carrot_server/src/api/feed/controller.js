@@ -109,3 +109,14 @@ exports.delete = async(req, res) => {
         res.send({result: 'ok', data: id});
     }
 };
+
+exports.myFeed = async (req, res) => {
+    const { page = 1, size = 10 } = req.query;
+    const userId = req.user.id;
+
+    const items = await repository.index(page, size, null, userId);
+
+    const modifiedItems = items.map(item => ({...item, is_me: true}));
+
+    res.json({result: 'ok', data: modifiedItems});
+};

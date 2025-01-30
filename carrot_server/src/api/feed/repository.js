@@ -3,12 +3,34 @@ const { pool } = require('../../database')
 exports.index  = async (page, size, keyword) => {
     const offset = (page - 1) * size; // page = 2, size = 10 -> offset = 10 -> 11~20번 데이터
 
-    // let query = `SELECT feed.*, user.name AS user_name, image_id 
-    // FROM feed 
-    // LEFT JOIN user 
-    // ON user.id = feed.user_id 
-    // LEFT JOIN files 
-    // ON feed.image_id = files.id`;
+    let query = `SELECT feed.*, user.name AS user_name, image_id 
+    FROM feed 
+    LEFT JOIN user 
+    ON user.id = feed.user_id 
+    LEFT JOIN files 
+    ON feed.image_id = files.id`;
+
+    const whereClause = [];
+    const params = [];
+
+    if (keyword) {
+        query += ` WHERE LOWER(feed.title) LIKE ? OR LOWER(feed.content) LIKE ? `;
+        const keywordParam = `%${keyword}%`;
+        params.push(keywordParam, keywordParam);
+    }
+
+
+    if (userId) {
+        whereClause.push(`feed.userId = ?`);
+        params.push(userId);
+    }
+
+    if (whereClause.length > 0) {
+        query += ` WHERE` + whereClause.join(` AND `);
+    }
+
+    query += ` ORDER BY feed.id DESC LIMIT ? OFFSET ?`;
+    params.push(size, offset);
 
     // [임시적] ? 대신 10과 0으로 대체
     query = `SELECT feed.*, user.name AS user_name, image_id 
@@ -18,17 +40,6 @@ exports.index  = async (page, size, keyword) => {
     LEFT JOIN files 
     ON feed.image_id = files.id
     ORDER BY feed.id DESC LIMIT 10 OFFSET 0`;
-
-    const params = [];
-
-    if (keyword) {
-        query += ` WHERE LOWER(feed.title) LIKE ? OR LOWER(feed.content) LIKE ? `;
-        const keywordParam = `%${keyword}%`;
-        params.push(keywordParam, keywordParam);
-    }
-
-    // query += ` ORDER BY feed.id DESC LIMIT ? OFFSET ?`;
-    params.push(size, offset);
 
     try {
         return await pool.query(query, params);

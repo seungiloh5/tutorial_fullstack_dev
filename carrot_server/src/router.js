@@ -36,6 +36,7 @@ router.post('/file', upload.single('file'), fileController.upload);
 router.get('file/:id', fileController.download);
 
 // feed API 라우트
+router.get('/api/user/my/feed', apiFeedController.myFeed);
 router.get('/api/feed', apiFeedController.index); // API: 피드 목록 조회
 router.post('/api/feed', apiFeedController.store); // API: 피드 생성
 router.get('/api/feed/:id', apiFeedController.show); // API: 특정 피드 상세 조회
