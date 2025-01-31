@@ -15,3 +15,21 @@ exports.favortieToggle = async (feedId, userId) => {
         return {result: 'added'};
     }
 };
+
+exports.getFavoriteFeeds = async (userId, page, size) => {
+    const offset = (page - 1) * size;
+
+    const query = `
+        SELECT feed.*, u.name AS user_name, f.id AS iamge_id,
+        (SELECT COUNT(*) FROM favorite WHERE favorite.feed_id = feed.id) AS favorite_count
+        FROM favorite
+        JOIN feed ON favorite.feed_id = feed.id
+        LEFT JOIN user u ON u.id = feed.user_id
+        LEFT JOIN files f ON feed.image_id = f.id
+        WHERE favorite.user_id = ${userId}
+        ORDER BY favorite.created_at DESC
+        LIMIT ${size} OFFSET ${offset}
+        `;
+    
+        return await pool.query(query, [userId, size, offset]);
+};

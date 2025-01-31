@@ -43,7 +43,7 @@ exports.store = async (req, res) => {
 exports.show = async(req, res) => {
     const id = req.params.id;
     const user = req.user;
-    const item = await repository.show(id);
+    const item = await repository.show(id, user.id);
 
     const modifiedItems = {
         ...item,
@@ -51,10 +51,10 @@ exports.show = async(req, res) => {
             id: item.user_id,
             name: item.user_name,
             profile_id: item.user_profile
-        }
+        },
+        is_favorited: Boolean(item.is_favorited)
     }
 
-    delete modifiedItems.user_id;
     delete modifiedItems.user_name;
     delete modifiedItems.user_profile;
 
@@ -133,5 +133,17 @@ exports.favoriteToggle = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.send({result: 'fail', message: '오류가 발생했습니다.'});
+    }
+};
+
+exports.getFavoriteFeeds = async (req, res) => {
+    try {
+        const { page = 1, size = 10} = req.query;
+        const userId = req.user.id;
+        const favoriteFeeds = await favoriteRepository.getFavoriteFeeds(userId, page, size);
+        res.json({result: 'ok', data: favoriteFeeds});
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({result: 'fail', message: '오류가 발생했습니다.'});
     }
 };

@@ -45,6 +45,7 @@ router.put('/api/feed/:id', apiFeedController.update); // API: 특정 피드 수
 router.delete('/api/feed/:id', apiFeedController.delete); // API: 특정 피드 삭제
 
 //
+router.get('/api/feed/favorite', apiFavoriteController.getFavoriteFeeds);
 router.put('/api/feed/:id/favorite', apiFavoriteController.favoriteToggle);
 
 // 라우터 모듈을 외부로 내보냄
