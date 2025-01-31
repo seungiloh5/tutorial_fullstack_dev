@@ -1,6 +1,6 @@
 const { pool } = require('../../database');
 
-exports.favortieToggle = async (feedId, userId) => {
+exports.favoriteToggle = async (feedId, userId) => {
 
     const checkQuery = `SELECT * FROM favorite WHERE feed_id = ${feedId} AND user_id = ${userId}`;
     const checkResult = await pool.query(checkQuery, [feedId, userId]);

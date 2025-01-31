@@ -1,4 +1,4 @@
-const { pool } = require('../../database')
+const { pool } = require('../../database');
 
 exports.index  = async (page, size, keyword, userId) => {
     const offset = (page - 1) * size; // page = 2, size = 10 -> offset = 10 -> 11~20번 데이터
