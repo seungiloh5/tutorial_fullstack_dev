@@ -80,4 +80,12 @@ class FeedProvider extends Provider {
     }
     return response.body ?? {};
   }
+
+  Future<Map> toggleFavorite(int feedId) async {
+    final response = await put('/api/feed/$feedId/favorite', {});
+    if (response.hasError) {
+      return {};
+    }
+    return response.body ?? {};
+  }
 }

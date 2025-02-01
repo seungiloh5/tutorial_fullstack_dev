@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:get/get.dart';
+
 import '../provider/feed_provider.dart';
 import '../models/feed_model.dart';
 
@@ -103,5 +104,21 @@ class FeedController extends GetxController {
     }
     Get.snackbar('삭제 에러', body['message'], snackPosition: SnackPosition.BOTTOM);
     return false;
+  }
+
+  Future<void> toggleFavorite(int feedId) async {
+    Map response = await feedProvider.toggleFavorite(feedId);
+    if (response['result'] == 'ok') {
+      FeedModel updatedFeed = currentFeed.value!.copyWith(
+        isFavorite: response['action'] == 'added',
+      );
+      currentFeed.value = updatedFeed;
+    } else {
+      Get.snackbar(
+        '즐겨찾기 에러',
+        response['message'],
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    }
   }
 }

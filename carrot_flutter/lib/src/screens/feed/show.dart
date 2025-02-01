@@ -93,15 +93,26 @@ class _FeedShowState extends State<FeedShow> {
       ),
       bottomNavigationBar: Obx(
         () {
+          final feed = feedController.currentFeed.value;
+          if (feed == null) {
+            return const SizedBox();
+          }
           return Container(
             decoration: BoxDecoration(
-              border: Border(
-                top: BorderSide(color: Colors.grey.shade200),
-              ),
+              border: Border(top: BorderSide(color: Colors.grey.shade200)),
             ),
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
+                IconButton(
+                  onPressed: () async {
+                    await feedController.toggleFavorite(feed.id);
+                  },
+                  icon: Icon(
+                    feed.isFavorite ? Icons.favorite : Icons.favorite_border,
+                    color: feed.isFavorite ? Colors.red : Colors.grey,
+                  ),
+                ),
                 Expanded(
                   child: Text(
                     "${feedController.currentFeed.value?.price} 원",
