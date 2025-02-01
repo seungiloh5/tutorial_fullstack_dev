@@ -95,6 +95,7 @@ class _FeedShowState extends State<FeedShow> {
         () {
           final feed = feedController.currentFeed.value;
           if (feed == null) {
+            print('[FeedShow] 피드 불러오기 실패');
             return const SizedBox();
           }
           return Container(

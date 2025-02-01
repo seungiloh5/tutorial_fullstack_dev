@@ -40,13 +40,11 @@ router.get('file/:id', fileController.download);
 router.get('/api/user/my/feed', apiFeedController.myFeed);
 router.get('/api/feed', apiFeedController.index); // API: 피드 목록 조회
 router.post('/api/feed', apiFeedController.store); // API: 피드 생성
+router.get('/api/feed/favorite', apiFavoriteController.getFavoriteFeeds);
+router.put('/api/feed/:id/favorite', apiFavoriteController.favoriteToggle);
 router.get('/api/feed/:id', apiFeedController.show); // API: 특정 피드 상세 조회
 router.put('/api/feed/:id', apiFeedController.update); // API: 특정 피드 수정
 router.delete('/api/feed/:id', apiFeedController.delete); // API: 특정 피드 삭제
-
-//
-router.get('/api/feed/favorite', apiFavoriteController.getFavoriteFeeds);
-router.put('/api/feed/:id/favorite', apiFavoriteController.favoriteToggle);
 
 // 라우터 모듈을 외부로 내보냄
 module.exports = router;

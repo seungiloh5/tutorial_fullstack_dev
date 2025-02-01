@@ -1,11 +1,12 @@
 const favoriteRepository = require('./repository');
 
 exports.favoriteToggle = async (req, res) => {
+    console.log('[Server:FavoriteController] favoriteToggle 실행됨');
     try {
         const feedId = req.params.id;
         const userId = req.user.id;
 
-        const result = await favoriteRepository.favoriteToggle(userId, feedId);
+        const result = await favoriteRepository.favoriteToggle(feedId, userId);
 
         res.send({result: 'ok', action: result.result});
     } catch (error) {
@@ -15,6 +16,7 @@ exports.favoriteToggle = async (req, res) => {
 };
 
 exports.getFavoriteFeeds = async (req, res) => {
+    console.log('[Server:FavoriteController] getFavoriteFeeds 실행됨');
     try {
         const { page = 1, size = 10} = req.query;
         const userId = req.user.id;

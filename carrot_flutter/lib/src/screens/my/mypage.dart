@@ -1,3 +1,4 @@
+import 'package:carrot_flutter/src/screens/feed/favorite.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -44,6 +45,13 @@ class MyPage extends StatelessWidget {
               leading: Icon(Icons.receipt_long_outlined),
               onTap: () {
                 Get.to(() => const FeedMy());
+              },
+            ),
+            ListTile(
+              title: const Text('관심목록'),
+              leading: const Icon(Icons.favorite_border),
+              onTap: () {
+                Get.to(() => const FeedFavorite());
               },
             ),
             ListTile(
