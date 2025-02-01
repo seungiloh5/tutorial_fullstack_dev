@@ -10,6 +10,8 @@ class FeedModel {
   DateTime? createdAt;
   bool isMe = false;
   UserModel? writer;
+  bool isFavorite = false;
+  int favoriteCount = 0;
 
   get imageUrl => (imageId != null)
       ? "${Global.baseUrl}/file/$imageId"
@@ -24,6 +26,8 @@ class FeedModel {
     required this.isMe,
     this.imageId,
     this.writer,
+    required this.isFavorite,
+    this.favoriteCount = 0,
   });
 
   FeedModel.parse(Map<String, dynamic> m) {
@@ -35,6 +39,8 @@ class FeedModel {
     isMe = m['is_me'] ?? false;
     createdAt = DateTime.parse(m['created_at']);
     writer = (m['writer'] != null) ? UserModel.parse(m['writer']) : null;
+    isFavorite = m['is_favorite'];
+    favoriteCount = m['favorite_count'] ?? 0;
   }
 
   FeedModel copyWith({
@@ -46,6 +52,8 @@ class FeedModel {
     bool? isMe,
     DateTime? createdAt,
     UserModel? writer,
+    bool? isFavorite,
+    int? favoriteCount,
   }) {
     return FeedModel(
       id: id ?? this.id,
@@ -56,6 +64,8 @@ class FeedModel {
       createdAt: createdAt ?? this.createdAt,
       writer: writer ?? this.writer,
       isMe: isMe ?? this.isMe,
+      isFavorite: isFavorite ?? this.isFavorite,
+      favoriteCount: favoriteCount ?? this.favoriteCount,
     );
   }
 }

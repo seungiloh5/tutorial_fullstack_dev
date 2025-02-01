@@ -135,8 +135,9 @@ class FeedListItem extends StatelessWidget {
                 ),
               ],
             ),
+            // 채팅, 관심 물건 창 배치
             Positioned(
-              right: 10,
+              right: 12,
               bottom: 0,
               child: Row(
                 children: [
@@ -147,7 +148,7 @@ class FeedListItem extends StatelessWidget {
                   ),
                   SizedBox(width: 2),
                   Text(
-                    '1',
+                    '0',
                     style: TextStyle(color: Colors.grey),
                   ),
                   SizedBox(width: 4),
@@ -158,8 +159,8 @@ class FeedListItem extends StatelessWidget {
                   ),
                   SizedBox(width: 2),
                   Text(
-                    '1',
-                    style: TextStyle(color: Colors.grey),
+                    '${data.favoriteCount}',
+                    style: const TextStyle(color: Colors.grey),
                   ),
                 ],
               ),
