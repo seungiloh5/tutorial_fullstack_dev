@@ -39,7 +39,7 @@ class FeedModel {
     isMe = m['is_me'] ?? false;
     createdAt = DateTime.parse(m['created_at']);
     writer = (m['writer'] != null) ? UserModel.parse(m['writer']) : null;
-    isFavorite = m['is_favorite'];
+    isFavorite = m['is_favorite'] ?? false;
     favoriteCount = m['favorite_count'] ?? 0;
   }
 
