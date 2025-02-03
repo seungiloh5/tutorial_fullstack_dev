@@ -88,4 +88,12 @@ class FeedProvider extends Provider {
     }
     return response.body ?? {};
   }
+
+  Future<Map> favoriteIndex(int page) async {
+    final response = await get('/api/feed/favorite', query: {'page': '$page'});
+    if (response.hasError) {
+      return {};
+    }
+    return response.body ?? {};
+  }
 }

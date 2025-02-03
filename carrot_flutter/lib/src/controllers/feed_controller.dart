@@ -9,6 +9,7 @@ class FeedController extends GetxController {
   final RxList<FeedModel> feedList = <FeedModel>[].obs;
   final RxList<FeedModel> searchList = <FeedModel>[].obs;
   final RxList<FeedModel> myFeedList = <FeedModel>[].obs;
+  final RxList<FeedModel> favoriteList = <FeedModel>[].obs;
   final Rx<FeedModel?> currentFeed = Rx<FeedModel?>(null);
 
   feedIndex({int page = 1}) async {
@@ -120,5 +121,12 @@ class FeedController extends GetxController {
         snackPosition: SnackPosition.BOTTOM,
       );
     }
+  }
+
+  favoriteIndex({int page = 1}) async {
+    Map json = await feedProvider.favoriteIndex(page);
+    List<FeedModel> tmp =
+        json['data'].map<FeedModel>((m) => FeedModel.parse(m)).toList();
+    (page == 1) ? favoriteList.assignAll(tmp) : favoriteList.addAll(tmp);
   }
 }

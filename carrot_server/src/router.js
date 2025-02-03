@@ -9,6 +9,7 @@ const apiFeedController = require('./api/feed/controller');
 const apiUserController = require('./api/user/controller');
 const fileController = require('./api/file/controller');
 const apiFavoriteController = require('./api/favorite/controller');
+const apiCommunityController = require('./api/community/controller');
 
 const {logRequestTime} = require('./middleware/log'); // 미들웨어 불러오기
 const authenticateToken = require('./middleware/authenticate'); // 인증 미들웨어 불러오기
@@ -40,13 +41,18 @@ router.get('file/:id', fileController.download);
 router.get('/api/user/my/feed', apiFeedController.myFeed);
 router.get('/api/feed', apiFeedController.index); // API: 피드 목록 조회
 router.post('/api/feed', apiFeedController.store); // API: 피드 생성
+router.get('/api/feed/favorite', apiFavoriteController.getFavoriteFeeds);
+router.put('/api/feed/:id/favorite', apiFavoriteController.favoriteToggle);
 router.get('/api/feed/:id', apiFeedController.show); // API: 특정 피드 상세 조회
 router.put('/api/feed/:id', apiFeedController.update); // API: 특정 피드 수정
 router.delete('/api/feed/:id', apiFeedController.delete); // API: 특정 피드 삭제
 
-//
-router.get('/api/feed/favorite', apiFavoriteController.getFavoriteFeeds);
-router.put('/api/feed/:id/favorite', apiFavoriteController.favoriteToggle);
+// community API 라우트
+router.get('/api/community', apiCommunityController.index); // API: 커뮤니티 목록 조회
+router.post('/api/community', apiCommunityController.store); // API: 커뮤니티 생성
+router.get('/api/community/:id', apiCommunityController.show); // API: 특정 커뮤니티 상세 조회
+router.put('/api/community/:id', apiCommunityController.update); // API: 특정 커뮤니티 수정
+router.delete('/api/community/:id', apiCommunityController.delete); // API: 특정 커뮤니티 삭제
 
 // 라우터 모듈을 외부로 내보냄
 module.exports = router;
