@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../controllers/community_controller.dart';
+import '../../screens/community/edit.dart';
 import '../../widgets/basic/image_box.dart';
 import '../../widgets/listitems/user_list_item.dart';
 import '../../widgets/modal/commu_modal.dart';

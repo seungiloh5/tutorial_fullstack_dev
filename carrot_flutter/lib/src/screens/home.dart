@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'feed/index.dart';
 import '../screens/my/mypage.dart';
+import 'community/index.dart';
 
 final List<BottomNavigationBarItem> myTabs = <BottomNavigationBarItem>[
   BottomNavigationBarItem(
@@ -25,7 +26,7 @@ final List<BottomNavigationBarItem> myTabs = <BottomNavigationBarItem>[
 
 final List<Widget> myTabItems = [
   FeedIndex(),
-  Center(child: Text('동네')),
+  CommunityIndex(),
   Center(child: Text('채팅')),
   MyPage(),
 ];
