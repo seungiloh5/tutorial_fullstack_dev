@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controllers/feed_controller.dart';
+import '../../controllers/chat_controller.dart';
+import '../../screens/chat/show.dart';
 import '../../widgets/listitems/user_list_item.dart';
 import '../../shared/timeutil.dart';
 
@@ -14,6 +16,7 @@ class FeedShow extends StatefulWidget {
 
 class _FeedShowState extends State<FeedShow> {
   final FeedController feedController = Get.find<FeedController>();
+  final ChatController chatController = Get.find<ChatController>();
 
   @override
   void initState() {
@@ -21,7 +24,10 @@ class _FeedShowState extends State<FeedShow> {
     feedController.feedShow(widget.feedId);
   }
 
-  _chat() {}
+  _chat() async {
+    int id = await chatController.newRoom(widget.feedId);
+    Get.to(() => ChatShow(id));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -116,18 +122,21 @@ class _FeedShowState extends State<FeedShow> {
                 ),
                 Expanded(
                   child: Text(
-                    "${feedController.currentFeed.value?.price} 원",
+                    "${feed.price} 원",
                     style: Theme.of(context).textTheme.labelLarge,
                   ),
                 ),
-                SizedBox(
-                  width: 100,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      textStyle: Theme.of(context).textTheme.bodyMedium,
+                Visibility(
+                  visible: !feed.isMe,
+                  child: SizedBox(
+                    width: 100,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        textStyle: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                      onPressed: _chat,
+                      child: const Text("채팅하기"),
                     ),
-                    onPressed: _chat,
-                    child: const Text("채팅하기"),
                   ),
                 ),
               ],
