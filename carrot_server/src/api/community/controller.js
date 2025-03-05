@@ -10,12 +10,13 @@ exports.index = async (req, res) => {
         ...item,
         is_me: (userId == item.user_id)
     }));
+
+    res.send({result: 'ok', data: modifiedItems});
 };
 
 exports.store = async (req, res) => {
     const body = req.body;
     const user = req.user;
-
     const result = await repository.create(user.id, body.title, body.content, body.category, body.imageId);
     if (result.affectedRows > 0) {
         res.send ({result: 'ok', data: result.insertId});

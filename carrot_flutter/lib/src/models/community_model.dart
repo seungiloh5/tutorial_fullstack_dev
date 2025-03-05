@@ -28,12 +28,13 @@ class CommunityModel {
 
   CommunityModel.parse(Map<String, dynamic> m) {
     id = m['id'];
-    userId = m['userId'];
-    imageId = m['imageId'];
+    userId = m['user_id'] ?? 0;
+    imageId = m['image_id'];
     category = m['category'];
     title = m['title'];
     content = m['content'];
-    createdAt = m['createdAt'] != null ? DateTime.parse(m['created_at']) : null;
+    createdAt =
+        m['created_at'] != null ? DateTime.parse(m['created_at']) : null;
     writer = m['writer'] != null ? UserModel.parse(m['writer']) : null;
   }
 

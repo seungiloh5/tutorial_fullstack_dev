@@ -22,6 +22,7 @@ class CommunityController extends GetxController {
       String category, String title, String content, int? image) async {
     Map body = await provider.store(category, title, content, image);
     if (body['result'] == 'ok') {
+      print("DB에 커뮤니티 글 저장 완료");
       await communityIndex();
       return true;
     }
