@@ -26,10 +26,6 @@ class CommunityListItem extends StatelessWidget {
                 children: [
                   Container(
                     padding: const EdgeInsets.only(bottom: 10),
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade300,
-                      borderRadius: BorderRadius.circular(3),
-                    ),
                     child: Text(
                       model.category,
                       style: TextStyle(

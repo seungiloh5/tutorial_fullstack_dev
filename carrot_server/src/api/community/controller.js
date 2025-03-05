@@ -30,21 +30,21 @@ exports.show = async (req, res) => {
     const user = req.user;
 
     const item = await repository.show(id);
-
     const modifiedItem = {
         ...item,
-        write: {
+        writer: {
             id: item.user_id,
             name: item.user_name,
             profile_id: item.user_profile
         }
     };
-
     delete modifiedItem.user_id;
     delete modifiedItem.user_name;
-    delete modifiedItem
+    delete modifiedItem.user_profile;
 
     modifiedItem['is_me'] = (user.id == item.user_id);
+
+    console.log(modifiedItem);
 
     res.send({result: 'ok', data: modifiedItem});
 }

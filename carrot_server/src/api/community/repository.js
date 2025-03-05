@@ -16,11 +16,11 @@ exports.create = async (user, title, content, category, image) => {
 
 exports.show = async (id) => {
     const query = `
-    SELECT community.*, u.name user_name, u.profile_id user_profile, image_id,
+    SELECT community.*, u.name AS user_name, u.profile_id AS user_profile, image_id
     FROM community
     LEFT JOIN user u ON u.id = community.user_id
-    LEFT JOIN files f1 on community.image_id = f1.id
-    LEFT JOIN files f2 on u.profile_id = f2.id
+    LEFT JOIN files f1 ON community.image_id = f1.id
+    LEFT JOIN files f2 ON u.profile_id = f2.id
     WHERE community.id = ${id}`;
     
     let result = await pool.query(query, [id]);
