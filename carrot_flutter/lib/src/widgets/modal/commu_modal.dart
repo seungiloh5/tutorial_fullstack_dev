@@ -15,6 +15,7 @@ class CommuBottomModal extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
+        SizedBox(height: 10),
         ListTile(
           title: const Text(
             '수정',
@@ -26,9 +27,11 @@ class CommuBottomModal extends StatelessWidget {
           title: const Text(
             '삭제',
             style: TextStyle(color: Colors.red),
+            textAlign: TextAlign.center,
           ),
           onTap: onDelete,
         ),
+        SizedBox(height: 10),
       ],
     );
   }

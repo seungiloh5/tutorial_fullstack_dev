@@ -81,6 +81,7 @@ exports.delete = async (req, res) => {
         res.send({result: 'fail', message: '타인의 글을 삭제할 수 없습니다.'});
         return;
     } else {
+        console.log(item.user_id);
         await repository.delete(id);
         res.send({result: 'ok', data: id});
     }

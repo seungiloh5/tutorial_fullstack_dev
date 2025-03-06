@@ -64,6 +64,7 @@ class CommunityController extends GetxController {
 
   Future<bool> communityDelete(int id) async {
     Map body = await provider.destroy(id);
+    print(body);
     if (body['result'] == 'ok') {
       itemList.removeWhere((feed) => feed.id == id);
       return true;
