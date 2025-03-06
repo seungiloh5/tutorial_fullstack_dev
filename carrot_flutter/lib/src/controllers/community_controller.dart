@@ -32,7 +32,7 @@ class CommunityController extends GetxController {
 
   Future<bool> communityUpdate(
       int id, String category, String title, String content, int? image) async {
-    Map body = await provider.update(id, title, category, content, image);
+    Map body = await provider.update(id, category, title, content, image);
     if (body['result'] == 'ok') {
       int index = itemList.indexWhere((feed) => feed.id == id);
       if (index != -1) {

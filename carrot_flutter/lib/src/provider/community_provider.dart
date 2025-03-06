@@ -35,8 +35,7 @@ class CommunityProvider extends Provider {
     if (image != null) {
       body['imageID'] = image.toString();
     }
-
-    final response = await put('api/community/$id', body);
+    final response = await put('/api/community/$id', body);
     return response.body;
   }
 

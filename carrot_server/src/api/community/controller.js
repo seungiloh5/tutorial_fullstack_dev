@@ -28,7 +28,6 @@ exports.store = async (req, res) => {
 exports.show = async (req, res) => {
     const id = req.params.id;
     const user = req.user;
-
     const item = await repository.show(id);
     const modifiedItem = {
         ...item,
@@ -53,14 +52,12 @@ exports.update = async (req, res) => {
     const id  = req.params.id;
     const body = req.body;
     const user = req.user;
-
     const item = await repository.show(id);
 
     if (user.id !== item.user_id) {
         res.send({result: 'fail', message: '타인의 글을 수정할 수 없습니다.'});
         return;
     }
-
     const result = await repository.update(body.title, body.content, body.category, body.imageId, id);
 
     if (result.affectedRows > 0) {

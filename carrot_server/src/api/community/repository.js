@@ -27,10 +27,22 @@ exports.show = async (id) => {
     return (result.length < 0) ? null : result[0];
 };
 
-exports.update = async(title, content, category, imageId, id) => {
-    const query = `UPDATE community SET title = ${title}, content = ${content}, category = ${category}, image_id = ${imageId}} WHERE id = ${id}`;
-    return await pool.query(query, [title, content, category, imageId, id]);
+exports.update = async (title, content, category, imageId, id) => {
+    const query = `
+      UPDATE community 
+      SET title = ?, content = ?, category = ?, image_id = ? 
+      WHERE id = ?
+    `;
+
+    return await pool.query(query, [
+      title, 
+      content, 
+      category, 
+      imageId ?? null,
+      id
+    ]);
 };
+
 
 exports.delete = async(id) => {
     const query = `DELETE FROM community WHERE id = ${id}`;
