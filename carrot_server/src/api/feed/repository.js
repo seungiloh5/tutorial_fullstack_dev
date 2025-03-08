@@ -8,8 +8,8 @@ exports.index  = async (page, size, keyword, userId) => {
     (SELECT COUNT(*) FROM favorite WHERE favorite.feed_id = feed.id) AS favorite_count ,
     (SELECT COUNT(DISTINCT room.id)
     FROM room
-    LEFT JOIN chat ON roomd.id = chat.room_id
-    WHERE room.feeed_id = feed.id AND chat.id IS NOT NULL) AS chat_count
+    LEFT JOIN chat ON room.id = chat.room_id
+    WHERE room.feed_id = feed.id AND chat.id IS NOT NULL) AS chat_count
     FROM feed 
     LEFT JOIN user u ON u.id = feed.user_id 
     LEFT JOIN files f ON feed.image_id = f.id
