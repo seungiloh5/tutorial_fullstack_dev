@@ -30,7 +30,10 @@ class _CommunityShowState extends State<CommunityShow> {
 
   deleteButton() async {
     final result = await controller.communityDelete(widget.id);
-    if (result) Get.back();
+    if (result) {
+      Get.back();
+      Get.back();
+    }
   }
 
   moreButton() {

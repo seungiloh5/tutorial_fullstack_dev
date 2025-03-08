@@ -7,7 +7,7 @@ class CommunityProvider extends Provider {
   }
 
   Future<Map> store(
-      String title, String category, String content, int? image) async {
+      String category, String title, String content, int? image) async {
     final body = {'title': title, 'category': category, 'content': content};
 
     if (image != null) {
@@ -35,8 +35,7 @@ class CommunityProvider extends Provider {
     if (image != null) {
       body['imageID'] = image.toString();
     }
-
-    final response = await put('api/community/$id', body);
+    final response = await put('/api/community/$id', body);
     return response.body;
   }
 

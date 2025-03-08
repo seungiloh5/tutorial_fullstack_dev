@@ -37,6 +37,7 @@ class _CommunityEditState extends State<CommunityEdit> {
     if (result) {
       Get.back();
       Get.back();
+      Get.back();
     }
   }
 
@@ -56,6 +57,12 @@ class _CommunityEditState extends State<CommunityEdit> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('동네 생활 수정'),
+        leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              int count = 0;
+              Get.until((route) => count++ == 2);
+            }),
         actions: [TextButton(onPressed: submit, child: const Text('완료'))],
       ),
       body: SafeArea(
@@ -79,7 +86,7 @@ class _CommunityEditState extends State<CommunityEdit> {
             ),
             Expanded(
               child: CommuTextField(
-                hint: '동네 근처 이웃과 러닝, 헤스 테니스 등 운동 이야기를 나눠보세요',
+                hint: '동네 근처 이웃과 러닝, 헬스 테니스 등 운동 이야기를 나눠보세요',
                 controller: contentController,
                 maxLines: null,
               ),
