@@ -63,7 +63,7 @@ class _CommunityCreateState extends State<CommunityCreate> {
             ),
             Expanded(
               child: CommuTextField(
-                hint: '동네 근처 이웃과 러닝, 헤스 테니스 등 운동 이야기를 나눠보세요',
+                hint: '동네 근처 이웃과 러닝,헬스 테니스 등 운동 이야기를 나눠보세요',
                 controller: contentController,
                 maxLines: null,
               ),
