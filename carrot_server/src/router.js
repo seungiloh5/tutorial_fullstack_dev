@@ -8,7 +8,7 @@ const webController = require('./web/controller');
 const apiFeedController = require('./api/feed/controller');
 const apiUserController = require('./api/user/controller');
 const fileController = require('./api/file/controller');
-const chatController = require('./chat/controller');
+const chatController = require('./api/chat/controller');
 const apiFavoriteController = require('./api/favorite/controller');
 const apiCommunityController = require('./api/community/controller');
 
@@ -56,7 +56,7 @@ router.put('/api/community/:id', apiCommunityController.update); // API: 특정 
 router.delete('/api/community/:id', apiCommunityController.delete); // API: 특정 커뮤니티 삭제
 
 // 채팅 API 라우트
-router.get('/api/chat/room/:id', chatController.getMessedMessages);
+router.get('/api/chat/room/:id', chatController.getMissedMessages);
 router.get('/api/chat/room', chatController.roomIndex);
 router.post('/api/chat/room', chatController.enterRoom);
 

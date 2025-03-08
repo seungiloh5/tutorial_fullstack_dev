@@ -6,12 +6,11 @@ const router = require('./src/router');
 const bodyParser = require('body-parser');
 const http = require('http');
 const WebSocket = require('ws');
-const chatController = require('./src/chat/controller');
+const chatController = require('./src/api/chat/controller');
 const jwt = require('jsonwebtoken');
 
 // 서버 연결을 위한 Cors 설정
 const cors = require('cors');
-const { decode } = require('punycode');
 
 // JSON 데이터를 처리하기 위해 body-parser를 설정
 app.use(bodyParser.json());
