@@ -12,7 +12,7 @@ class CommunityController extends GetxController {
 
   Future<void> communityIndex({int page = 1}) async {
     Map json = await provider.index(page);
-    List<CommunityModel> tmp = json['data']
+    List<CommunityModel> tmp = (json['data'] ?? [])
         .map<CommunityModel>((m) => CommunityModel.parse(m))
         .toList();
     (page == 1) ? itemList.assignAll(tmp) : itemList.addAll(tmp);
