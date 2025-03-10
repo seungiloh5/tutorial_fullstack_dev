@@ -2,7 +2,7 @@ const repository = require('./repository');
 
 exports.upload = async (req, res) => {
     const file = req.file;
-
+    console.log('이미지 업로드');
     console.log(file.origialname);
     console.log(file.path);
     console.log(file.size);

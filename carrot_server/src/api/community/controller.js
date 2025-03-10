@@ -10,12 +10,13 @@ exports.index = async (req, res) => {
         ...item,
         is_me: (userId == item.user_id)
     }));
+
+    res.send({result: 'ok', data: modifiedItems});
 };
 
 exports.store = async (req, res) => {
     const body = req.body;
     const user = req.user;
-
     const result = await repository.create(user.id, body.title, body.content, body.category, body.imageId);
     if (result.affectedRows > 0) {
         res.send ({result: 'ok', data: result.insertId});
@@ -27,23 +28,22 @@ exports.store = async (req, res) => {
 exports.show = async (req, res) => {
     const id = req.params.id;
     const user = req.user;
-
     const item = await repository.show(id);
-
     const modifiedItem = {
         ...item,
-        write: {
+        writer: {
             id: item.user_id,
             name: item.user_name,
             profile_id: item.user_profile
         }
     };
-
     delete modifiedItem.user_id;
     delete modifiedItem.user_name;
-    delete modifiedItem
+    delete modifiedItem.user_profile;
 
     modifiedItem['is_me'] = (user.id == item.user_id);
+
+    console.log(modifiedItem);
 
     res.send({result: 'ok', data: modifiedItem});
 }
@@ -52,14 +52,12 @@ exports.update = async (req, res) => {
     const id  = req.params.id;
     const body = req.body;
     const user = req.user;
-
     const item = await repository.show(id);
 
     if (user.id !== item.user_id) {
         res.send({result: 'fail', message: '타인의 글을 수정할 수 없습니다.'});
         return;
     }
-
     const result = await repository.update(body.title, body.content, body.category, body.imageId, id);
 
     if (result.affectedRows > 0) {
@@ -80,6 +78,7 @@ exports.delete = async (req, res) => {
         res.send({result: 'fail', message: '타인의 글을 삭제할 수 없습니다.'});
         return;
     } else {
+        console.log(item.user_id);
         await repository.delete(id);
         res.send({result: 'ok', data: id});
     }

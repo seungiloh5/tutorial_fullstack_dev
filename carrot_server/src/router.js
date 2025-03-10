@@ -34,8 +34,8 @@ router.get('/api/user/my', authenticateToken, apiUserController.show); // API: �
 router.put('/api/user/my', authenticateToken,  apiUserController.update); // API: 내 정보 수정
 
 // 파일 업로드
-router.post('/file', upload.single('file'), fileController.upload); 
-router.get('file/:id', fileController.download);
+router.post('/file/upload', upload.single('file'), fileController.upload); 
+router.get('/file/:id', fileController.download);
 
 // feed API 라우트
 router.get('/api/user/my/feed', apiFeedController.myFeed);

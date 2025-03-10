@@ -25,14 +25,15 @@ class CommunityListItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 1, horizontal: 5),
                     decoration: BoxDecoration(
                       color: Colors.grey.shade300,
                       borderRadius: BorderRadius.circular(3),
                     ),
                     child: Text(
                       model.category,
-                      style: TextStyle(
+                      style: const TextStyle().copyWith(
                         fontSize: 12,
                         color: Colors.grey.shade800,
                       ),
@@ -54,8 +55,10 @@ class CommunityListItem extends StatelessWidget {
                   const SizedBox(height: 5),
                   Text(
                     TimeUtil.parse(model.createdAt),
-                    style: const TextStyle()
-                        .copyWith(fontSize: 12, color: Colors.grey.shade600),
+                    style: const TextStyle().copyWith(
+                      fontSize: 12,
+                      color: Colors.grey.shade600,
+                    ),
                   ),
                 ],
               ),

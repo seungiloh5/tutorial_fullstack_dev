@@ -12,7 +12,7 @@ class CommunityController extends GetxController {
 
   Future<void> communityIndex({int page = 1}) async {
     Map json = await provider.index(page);
-    List<CommunityModel> tmp = json['data']
+    List<CommunityModel> tmp = (json['data'] ?? [])
         .map<CommunityModel>((m) => CommunityModel.parse(m))
         .toList();
     (page == 1) ? itemList.assignAll(tmp) : itemList.addAll(tmp);
@@ -22,6 +22,7 @@ class CommunityController extends GetxController {
       String category, String title, String content, int? image) async {
     Map body = await provider.store(category, title, content, image);
     if (body['result'] == 'ok') {
+      print("DB에 커뮤니티 피드 생성 완료");
       await communityIndex();
       return true;
     }
@@ -31,7 +32,7 @@ class CommunityController extends GetxController {
 
   Future<bool> communityUpdate(
       int id, String category, String title, String content, int? image) async {
-    Map body = await provider.update(id, title, category, content, image);
+    Map body = await provider.update(id, category, title, content, image);
     if (body['result'] == 'ok') {
       int index = itemList.indexWhere((feed) => feed.id == id);
       if (index != -1) {
@@ -52,6 +53,8 @@ class CommunityController extends GetxController {
   Future<void> communityShow(int id) async {
     Map body = await provider.show(id);
     if (body['result'] == 'ok') {
+      print("DB로 부터 커뮤니티 피드 조회 완료");
+      print(body['data']);
       currentItem.value = CommunityModel.parse(body['data']);
       return;
     }
@@ -61,6 +64,7 @@ class CommunityController extends GetxController {
 
   Future<bool> communityDelete(int id) async {
     Map body = await provider.destroy(id);
+    print(body);
     if (body['result'] == 'ok') {
       itemList.removeWhere((feed) => feed.id == id);
       return true;
