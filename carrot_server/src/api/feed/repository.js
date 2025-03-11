@@ -4,11 +4,15 @@ exports.index  = async (page, size, keyword, userId) => {
     const offset = (page - 1) * size; // page = 2, size = 10 -> offset = 10 -> 11~20번 데이터
 
     let query = `
-    SELECT feed.*, u.name AS user_name, f.id AS image_id,
-    (SELECT COUNT(*) FROM favorite WHERE favorite.feed_id = feed.id) AS favorite_count 
-    FROM feed 
-    LEFT JOIN user u ON u.id = feed.user_id 
-    LEFT JOIN files f ON feed.image_id = f.id
+        SELECT feed.*, u.name AS user_name, f.id AS image_id,
+        (SELECT COUNT(*) FROM favorite WHERE favorite.feed_id = feed.id) AS favorite_count ,
+        (SELECT COUNT(DISTINCT room.id)
+        FROM room
+        LEFT JOIN chat ON room.id = chat.room_id
+        WHERE room.feeed_id = feed.id AND chat.id IS NOT NULL) AS chat_count
+        FROM feed 
+        LEFT JOIN user u ON u.id = feed.user_id 
+        LEFT JOIN files f ON feed.image_id = f.id
     `;
 
     const whereClause = [];

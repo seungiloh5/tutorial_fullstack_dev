@@ -1,18 +1,19 @@
 const express = require('express');
-const router = express.Router(); // Express 라우터 객체 생성
+const router = express.Router();
 
-const multer = require('multer'); // multer 모듈을 불러옴
-const upload = multer({dest: 'storage/'}); // 파일 업로드를 위한 multer 설정
+const multer = require('multer');
+const upload = multer({dest: 'storage/'});
 
 const webController = require('./web/controller');
 const apiFeedController = require('./api/feed/controller');
 const apiUserController = require('./api/user/controller');
 const fileController = require('./api/file/controller');
+const chatController = require('./api/chat/controller');
 const apiFavoriteController = require('./api/favorite/controller');
 const apiCommunityController = require('./api/community/controller');
 
-const {logRequestTime} = require('./middleware/log'); // 미들웨어 불러오기
-const authenticateToken = require('./middleware/authenticate'); // 인증 미들웨어 불러오기
+const {logRequestTime} = require('./middleware/log');
+const authenticateToken = require('./middleware/authenticate');
 
 // 사용자 관련 라우트
 router.post('/auth/register', apiUserController.register); // API: 내 정보 조회
@@ -53,6 +54,11 @@ router.post('/api/community', apiCommunityController.store); // API: 커뮤니�
 router.get('/api/community/:id', apiCommunityController.show); // API: 특정 커뮤니티 상세 조회
 router.put('/api/community/:id', apiCommunityController.update); // API: 특정 커뮤니티 수정
 router.delete('/api/community/:id', apiCommunityController.delete); // API: 특정 커뮤니티 삭제
+
+// 채팅 API 라우트
+router.get('/api/chat/room/:id', chatController.getMissedMessages);
+router.get('/api/chat/room', chatController.roomIndex);
+router.post('/api/chat/room', chatController.enterRoom);
 
 // 라우터 모듈을 외부로 내보냄
 module.exports = router;
