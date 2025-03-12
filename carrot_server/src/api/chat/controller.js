@@ -11,6 +11,7 @@ exports.roomIndex = async (req, res) => {
     const { page = 1, size = 20 } = req.query;
     const userId = req.user.id;
 
+    console.log('1');
     try {
         const roomsData = await chatRepository.getRooms(userId, page, size);
         const rooms = roomsData.map(row => ({

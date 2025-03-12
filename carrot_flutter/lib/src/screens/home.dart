@@ -1,9 +1,10 @@
 import 'package:carrot_flutter/src/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'feed/index.dart';
 import '../screens/my/mypage.dart';
+import 'feed/index.dart';
 import 'community/index.dart';
+import 'chat/index.dart';
 
 final List<BottomNavigationBarItem> myTabs = <BottomNavigationBarItem>[
   BottomNavigationBarItem(
@@ -27,7 +28,7 @@ final List<BottomNavigationBarItem> myTabs = <BottomNavigationBarItem>[
 final List<Widget> myTabItems = [
   FeedIndex(),
   CommunityIndex(),
-  Center(child: Text('채팅')),
+  ChatIndex(),
   MyPage(),
 ];
 

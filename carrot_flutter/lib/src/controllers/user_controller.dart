@@ -8,11 +8,15 @@ class UserController extends GetxController {
 
   Future<void> myInfo() async {
     Map body = await userProvider.show();
+    final data = body['data'] ?? {};
+
     if (body['result'] == 'ok') {
-      my.value = UserModel.parse(body['data']);
+      my.value = UserModel.parse(data);
       return;
     }
-    Get.snackbar('회원 에러', body['message'], snackPosition: SnackPosition.BOTTOM);
+
+    Get.snackbar('회원 에러', body['message'] ?? '알 수 없는 오류가 발생했습니다.',
+        snackPosition: SnackPosition.BOTTOM);
   }
 
   Future<bool> updateInfo(String name, int? image) async {

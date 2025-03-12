@@ -148,13 +148,13 @@ class FeedListItem extends StatelessWidget {
                   ),
                   SizedBox(width: 2),
                   Text(
-                    '0',
+                    '${data.chatCount}',
                     style: TextStyle(color: Colors.grey),
                   ),
                   SizedBox(width: 4),
                   Icon(
                     Icons.favorite_border,
-                    color: const Color.fromARGB(255, 34, 25, 25),
+                    color: Colors.grey,
                     size: 16,
                   ),
                   SizedBox(width: 2),

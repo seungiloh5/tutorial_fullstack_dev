@@ -3,6 +3,12 @@ import 'provider.dart';
 class CommunityProvider extends Provider {
   Future<Map> index(int page, {String? keyword}) async {
     final response = await get('/api/community', query: {'page': '$page'});
+
+    if (response.body == null) {
+      print("[CommunityProvider] Response body is null (index)");
+      return {};
+    }
+
     return response.body;
   }
 
@@ -15,32 +21,52 @@ class CommunityProvider extends Provider {
     }
 
     final response = await post('/api/community', body);
+
+    if (response.body == null) {
+      print("[CommunityProvider] Response body is null (store)");
+      return {};
+    }
+
     return response.body;
   }
 
   Future<Map> show(int id) async {
     final response = await get('/api/community/$id');
+
+    if (response.body == null) {
+      print("[CommunityProvider] Response body is null (show)");
+      return {};
+    }
+
     return response.body;
   }
 
   Future<Map> update(
-    int id,
-    String category,
-    String title,
-    String content,
-    int? image,
-  ) async {
+      int id, String category, String title, String content, int? image) async {
     final body = {'category': category, 'title': title, 'content': content};
 
     if (image != null) {
       body['imageID'] = image.toString();
     }
+
     final response = await put('/api/community/$id', body);
+
+    if (response.body == null) {
+      print("[CommunityProvider] Response body is null (update)");
+      return {};
+    }
+
     return response.body;
   }
 
   Future<Map> destroy(int id) async {
     final response = await delete('/api/community/$id');
+
+    if (response.body == null) {
+      print("[CommunityProvider] Response body is null (destroy)");
+      return {};
+    }
+
     return response.body;
   }
 }

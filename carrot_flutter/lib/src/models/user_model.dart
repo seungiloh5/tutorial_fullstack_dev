@@ -10,9 +10,9 @@ class UserModel {
 
   UserModel({required this.id, required this.name});
 
-  UserModel.parse(Map m) {
-    id = m['id'];
-    name = m['name'];
-    profile = m['profile_id'];
+  UserModel.parse(Map<String, dynamic>? m) {
+    id = m?['id'] ?? 0;
+    name = m?['name'] ?? 'Unknown';
+    profile = m?['profile_id'];
   }
 }

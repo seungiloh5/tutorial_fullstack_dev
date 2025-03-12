@@ -22,7 +22,7 @@ exports.getRooms = async (userId, page, size) => {
             INNER JOIN (
                 SELECT room_id, MAX(created_at) AS latest
                 FROM chat
-                GROUP BY rooom_id
+                GROUP BY room_id
             ) chat2 ON chat1.room_id = chat2.room_id AND chat1.created_at = chat2.latest
         ) latest_chat ON room.id = latest_chat.room_id
         WHERE room.user_id = ? OR feed.user_id = ?
